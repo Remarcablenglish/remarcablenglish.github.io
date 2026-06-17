@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remarkable English｜馬克精緻語言訓練</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+#stage{
+  width:100%;min-height:100vh;background:#001a09;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;cursor:none;user-select:none;
+}
+#parchment-wrap{position:relative;width:360px;height:460px;}
+#parchment-svg{position:absolute;inset:0;width:100%;height:100%;}
+#parchment-content{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:44px 36px 120px;z-index:2;gap:0;
+}
+#re-title{
+  font-family:'Cinzel',Georgia,serif;font-size:13px;letter-spacing:0.22em;
+  color:#8a6a1a;text-align:center;margin-bottom:3px;
+}
+#re-sub{font-size:10px;letter-spacing:0.24em;color:#a07830;margin-bottom:20px;text-align:center;}
+#divider-top{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-bottom:28px;}
+#three-jing{
+  display:flex;gap:20px;align-items:center;margin-bottom:20px;
+}
+.jing-item{text-align:center;}
+.jing-zh{
+  font-size:22px;color:#7a5810;display:block;
+  letter-spacing:0.12em;line-height:1;
+  font-family:Georgia,'Noto Serif TC',serif;
+}
+.jing-en{
+  font-size:9px;color:#a07830;letter-spacing:0.16em;
+  display:block;margin-top:5px;font-family:Georgia,serif;
+}
+.jing-dot{font-size:18px;color:#c8a04a;opacity:0.5;}
+#divider-mid{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-bottom:20px;}
+#voice-line{
+  font-family:Georgia,serif;font-size:17px;color:#5a3e0a;
+  text-align:center;letter-spacing:0.08em;font-style:italic;line-height:1.5;
+}
+#voice-sub{
+  font-size:9px;color:#9a7830;letter-spacing:0.2em;
+  text-align:center;margin-top:8px;font-family:Georgia,serif;
+}
+#divider-bot{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-top:24px;}
+#slot-area{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  width:80px;height:90px;display:flex;align-items:center;justify-content:center;z-index:3;
+}
+#slot-svg{width:80px;height:90px;overflow:visible;}
+#slot-path{
+  fill:rgba(200,168,74,0.07);stroke:#c8a84a;stroke-width:2;
+  stroke-dasharray:5,4;transition:all 0.25s;
+}
+#slot-path.glow{
+  fill:rgba(245,200,66,0.17);stroke:#f5d060;
+  filter:drop-shadow(0 0 7px rgba(245,208,96,0.45));
+}
+#snap-shield{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  width:80px;height:90px;display:none;align-items:center;justify-content:center;z-index:4;
+}
+#glow-ring{
+  position:absolute;bottom:18px;left:50%;transform:translateX(-50%) scale(0.8);
+  width:96px;height:108px;border:2px solid #f5d060;border-radius:50%;
+  opacity:0;pointer-events:none;z-index:5;transition:all 0.5s ease;
+}
+#instruction{
+  position:absolute;bottom:8px;left:0;right:0;text-align:center;
+  font-size:10px;color:#D1B06B;letter-spacing:0.14em;font-family:Georgia,serif;z-index:10;
+}
+#cursor-shield{
+  position:fixed;width:52px;height:58px;pointer-events:none;
+  transform:translate(-50%,-50%);z-index:9999;display:none;
+}
+#menu{
+  display:none;flex-direction:column;align-items:center;gap:14px;
+  width:100%;padding:40px 20px;min-height:100vh;
+  background:#001a09;animation:fadeUp 0.7s ease;
+  justify-content:center;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.menu-logo{width:72px;height:80px;margin-bottom:6px;}
+.menu-title{
+  font-family:'Cinzel',Georgia,serif;font-size:19px;
+  color:#D1B06B;letter-spacing:0.1em;text-align:center;
+}
+.menu-sub{font-size:11px;color:#7a6030;letter-spacing:0.2em;margin-bottom:10px;font-family:Georgia,serif;}
+.menu-btn{
+  width:280px;padding:14px 20px;background:transparent;border:1px solid #7a6030;
+  border-radius:2px;color:#c8a84a;font-family:Georgia,serif;font-size:13px;
+  letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;display:flex;
+  align-items:center;gap:14px;text-decoration:none;
+}
+.menu-btn:hover{border-color:#D1B06B;background:rgba(200,168,74,0.1);color:#f5d878;}
+.menu-icon{font-size:20px;flex-shrink:0;}
+.menu-txt-title{font-weight:bold;display:block;font-size:13px;}
+.menu-txt-desc{font-size:10px;opacity:0.6;display:block;margin-top:3px;letter-spacing:0.08em;}
+.back-btn{
+  background:none;border:none;color:#5a4820;font-size:11px;cursor:pointer;
+  letter-spacing:0.1em;text-decoration:underline;margin-top:6px;font-family:Georgia,serif;
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div id="parchment-wrap">
+    <svg id="parchment-svg" viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="roughen">
+          <feTurbulence type="turbulence" baseFrequency="0.018" numOctaves="3" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <path d="M18 12 Q20 7 30 9 L332 5 Q343 4 347 12 L351 20 Q355 26 353 36 L349 424 Q349 436 343 443 L338 450 Q331 456 319 454 L41 458 Q27 459 20 451 L13 444 Q7 436 8 424 L7 32 Q6 18 18 12Z" fill="#e2d4a8" filter="url(#roughen)"/>
+      <path d="M22 16 Q24 11 32 13 L330 9 Q341 8 345 16 L348 23 Q352 28 350 37 L346 420 Q346 432 340 439 L335 446 Q328 452 317 450 L43 454 Q29 455 22 447 L16 440 Q11 433 11 420 L10 34 Q9 21 22 16Z" fill="#ecdcb4"/>
+      <path d="M30 24 Q32 19 40 21 L322 17 Q333 16 337 24 L340 31 Q343 36 341 44 L337 414 Q337 426 331 432 L326 438 Q319 444 308 442 L52 446 Q39 447 32 440 L26 433 Q20 426 20 413 L21 42 Q20 28 30 24Z" fill="#f4eacb"/>
+      <line x1="55" y1="95" x2="305" y2="95" stroke="#b8982a" stroke-width="0.4" stroke-dasharray="3,8" opacity="0.3"/>
+      <line x1="55" y1="365" x2="305" y2="365" stroke="#b8982a" stroke-width="0.4" stroke-dasharray="3,8" opacity="0.3"/>
+      <rect x="28" y="18" width="304" height="422" fill="none" stroke="#b8902a" stroke-width="0.9" rx="2" opacity="0.28"/>
+      <rect x="36" y="26" width="288" height="406" fill="none" stroke="#b8902a" stroke-width="0.4" rx="1" opacity="0.18"/>
+      <path d="M28 26 L44 42" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
+      <path d="M332 24 L316 40" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
+      <path d="M28 434 L46 418" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
+      <path d="M332 436 L314 420" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
+    </svg>
+
+    <div id="parchment-content">
+      <div id="re-title">REMARKABLE ENGLISH</div>
+      <div id="re-sub">馬克精緻語言訓練</div>
+      <div id="divider-top"></div>
+
+      <div id="three-jing">
+        <div class="jing-item">
+          <span class="jing-zh">精緻</span>
+          <span class="jing-en">refined</span>
+        </div>
+        <span class="jing-dot">·</span>
+        <div class="jing-item">
+          <span class="jing-zh">精準</span>
+          <span class="jing-en">precise</span>
+        </div>
+        <span class="jing-dot">·</span>
+        <div class="jing-item">
+          <span class="jing-zh">精通</span>
+          <span class="jing-en">mastery</span>
+        </div>
+      </div>
+
+      <div id="divider-mid"></div>
+      <div id="voice-line">make your voice heard</div>
+      <div id="voice-sub">clearly · naturally · yours</div>
+      <div id="divider-bot"></div>
+    </div>
+
+    <div id="slot-area">
+      <svg id="slot-svg" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+        <path id="slot-path" d="M40 2 L78 16 L78 44 Q78 70 40 88 Q2 70 2 44 L2 16 Z"/>
+        <text id="slot-label-svg" x="40" y="50" font-family="Georgia,serif" font-size="7.5" fill="#c8a84a" text-anchor="middle" letter-spacing="0.5">place shield</text>
+      </svg>
+    </div>
+
+    <div id="snap-shield">
+      <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg" width="80" height="90">
+        <path d="M40 3 L77 17 L77 45 Q77 71 40 87 Q3 71 3 45 L3 17 Z" fill="#00260D" stroke="#D1B06B" stroke-width="2.5"/>
+        <path d="M40 9 L71 21 L71 45 Q71 66 40 80 Q9 66 9 45 L9 21 Z" fill="none" stroke="#c8a84a" stroke-width="0.8" opacity="0.5"/>
+        <text x="40" y="56" font-family="Georgia,serif" font-size="30" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
+      </svg>
+    </div>
+    <div id="glow-ring"></div>
+    <div id="instruction">bring the shield to the slot</div>
+  </div>
+</div>
+
+<div id="menu">
+  <svg class="menu-logo" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 3 L77 17 L77 45 Q77 71 40 87 Q3 71 3 45 L3 17 Z" fill="#00260D" stroke="#D1B06B" stroke-width="2.5"/>
+    <path d="M40 9 L71 21 L71 45 Q71 66 40 80 Q9 66 9 45 L9 21 Z" fill="none" stroke="#c8a84a" stroke-width="0.8" opacity="0.5"/>
+    <text x="40" y="56" font-family="Georgia,serif" font-size="30" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
+  </svg>
+  <div class="menu-title">REMARKABLE ENGLISH</div>
+  <div class="menu-sub">馬克精緻語言訓練</div>
+  <a class="menu-btn" href="./GSATvocab3-4/">
+    <span class="menu-icon">📖</span>
+    <span><span class="menu-txt-title">學測寫作高分搭配詞</span><span class="menu-txt-desc">Level 3 · 4 · 5 即時速查工具</span></span>
+  </a>
+  <a class="menu-btn" href="./about.html">
+    <span class="menu-icon">🛡️</span>
+    <span><span class="menu-txt-title">關於 Marc 老師</span><span class="menu-txt-desc">你不用說，我就知道問題在哪</span></span>
+  </a>
+  <button class="back-btn" onclick="reset()">← experience again</button>
+</div>
+
+<div id="cursor-shield">
+  <svg viewBox="0 0 52 58" xmlns="http://www.w3.org/2000/svg" width="52" height="58">
+    <path d="M26 2 L50 11 L50 30 Q50 47 26 56 Q2 47 2 30 L2 11 Z" fill="#00260D" stroke="#D1B06B" stroke-width="2"/>
+    <path d="M26 7 L45 15 L45 30 Q45 44 26 52 Q7 44 7 30 L7 15 Z" fill="none" stroke="#c8a84a" stroke-width="0.6" opacity="0.5"/>
+    <text x="26" y="37" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
+  </svg>
+</div>
+
+<script>
+const stage=document.getElementById('stage');
+const cur=document.getElementById('cursor-shield');
+const slotPath=document.getElementById('slot-path');
+const slotLabel=document.getElementById('slot-label-svg');
+const snap=document.getElementById('snap-shield');
+const glowRing=document.getElementById('glow-ring');
+const instr=document.getElementById('instruction');
+const menu=document.getElementById('menu');
+let mx=0,my=0,snapped=false;
+
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';
+  cur.style.top=e.clientY+'px';
+});
+stage.addEventListener('mouseenter',()=>{if(!snapped)cur.style.display='block';});
+stage.addEventListener('mouseleave',()=>{cur.style.display='none';});
+
+stage.addEventListener('mousemove',e=>{
+  if(snapped)return;
+  const r=stage.getBoundingClientRect();
+  mx=e.clientX-r.left;my=e.clientY-r.top;
+  const sa=document.getElementById('slot-area').getBoundingClientRect();
+  const cx=sa.left-r.left+sa.width/2;
+  const cy=sa.top-r.top+sa.height/2;
+  const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
+  if(d<72){
+    slotPath.classList.add('glow');
+    instr.textContent='release to lock it in ✦';
+    instr.style.color='#f5d060';
+    cur.style.transform=`translate(-50%,-50%) scale(${1.08+0.07*(1-d/72)})`;
+  } else {
+    slotPath.classList.remove('glow');
+    instr.textContent='bring the shield to the slot';
+    instr.style.color='#D1B06B';
+    cur.style.transform='translate(-50%,-50%) scale(1)';
+  }
+});
+
+stage.addEventListener('click',e=>{
+  if(snapped)return;
+  const r=stage.getBoundingClientRect();
+  mx=e.clientX-r.left;my=e.clientY-r.top;
+  const sa=document.getElementById('slot-area').getBoundingClientRect();
+  const cx=sa.left-r.left+sa.width/2;
+  const cy=sa.top-r.top+sa.height/2;
+  const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
+  if(d<90)doSnap();
+});
+
+function doSnap(){
+  snapped=true;cur.style.display='none';
+  slotPath.style.display='none';slotLabel.style.display='none';
+  snap.style.display='flex';
+  glowRing.style.opacity='1';glowRing.style.transform='translateX(-50%) scale(1.1)';
+  setTimeout(()=>{glowRing.style.opacity='0';glowRing.style.transform='translateX(-50%) scale(1.45)';},400);
+  instr.textContent='✦  make your voice heard  ✦';instr.style.color='#f5d060';
+  setTimeout(()=>{
+    stage.style.transition='opacity 0.9s';stage.style.opacity='0';
+    setTimeout(()=>{stage.style.display='none';menu.style.display='flex';},900);
+  },1400);
+}
+
+function reset(){
+  snapped=false;menu.style.display='none';
+  stage.style.display='flex';stage.style.opacity='1';
+  snap.style.display='none';
+  slotPath.style.display='';slotLabel.style.display='';
+  slotPath.classList.remove('glow');
+  glowRing.style.opacity='0';glowRing.style.transform='translateX(-50%) scale(0.8)';
+  instr.textContent='bring the shield to the slot';instr.style.color='#D1B06B';
+  cur.style.display='none';
+}
+</script>
+</body>
+</html>
