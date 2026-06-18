@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關於 Marc 老師｜Remarcable English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f5f0e8;color:#2c2010;font-family:Georgia,'Noto Serif TC',serif;min-height:100vh;}
+
+nav{
+  background:#00260D;border-bottom:1px solid #1a4a18;
+  padding:16px 32px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo svg{width:36px;height:40px;}
+.nav-brand{font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:0.18em;color:#D1B06B;}
+.nav-links{display:flex;gap:20px;}
+.nav-links a{font-size:11px;letter-spacing:0.1em;color:#8a9a70;text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:#D1B06B;}
+
+.hero{background:#00260D;padding:72px 32px 56px;text-align:center;}
+.hero-label{font-size:10px;letter-spacing:0.28em;color:#4a7a30;margin-bottom:20px;}
+.hero-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin:0 auto 36px;}
+.hero-tagline{
+  font-size:16px;color:#a09870;line-height:2.2;
+  letter-spacing:0.04em;max-width:480px;margin:0 auto;
+}
+.hero-tagline strong{color:#D1B06B;}
+
+.section{max-width:680px;margin:0 auto;padding:48px 32px;}
+.section-label{
+  font-size:10px;letter-spacing:0.28em;color:#8a6a30;
+  margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid #d4c8a8;
+}
+
+.numbers{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#d4c8a8;border:1px solid #d4c8a8;}
+.number-item{background:#fffdf5;padding:28px 24px;text-align:center;}
+.number-big{font-family:'Cinzel',Georgia,serif;font-size:30px;color:#7a5010;display:block;margin-bottom:6px;}
+.number-label{font-size:10px;color:#9a7840;letter-spacing:0.14em;display:block;line-height:1.7;}
+
+.who-box{background:#fffdf5;border:1px solid #d4c8a8;border-radius:3px;padding:28px 32px;box-shadow:0 2px 8px rgba(160,120,40,0.06);}
+.who-box p{font-size:13px;color:#5a4020;line-height:2.1;margin-bottom:14px;}
+.who-box p:last-child{margin-bottom:0;color:#7a5830;}
+
+.philosophy{background:#00260D;padding:36px 32px;border-radius:3px;}
+.philosophy-flow{display:flex;flex-direction:column;gap:8px;}
+.flow-item{display:flex;align-items:center;gap:14px;}
+.flow-dot{width:7px;height:7px;border-radius:50%;background:#c8a84a;flex-shrink:0;}
+.flow-text{font-size:15px;color:#a09870;letter-spacing:0.06em;}
+.flow-arrow{padding-left:20px;font-size:13px;color:#3a6a28;}
+.flow-final .flow-dot{background:#D1B06B;width:10px;height:10px;}
+.flow-final .flow-text{color:#D1B06B;font-size:17px;}
+
+.story-card{
+  background:#fffdf5;border:1px solid #d4c8a8;border-left:3px solid #c8a84a;
+  padding:28px 28px 24px;border-radius:0 3px 3px 0;
+  box-shadow:0 2px 8px rgba(160,120,40,0.06);
+}
+.story-label{font-size:10px;letter-spacing:0.2em;color:#9a7840;margin-bottom:16px;}
+.story-stages{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.stage{display:flex;align-items:baseline;gap:12px;padding:12px 16px;background:#f5f0e4;border-radius:3px;}
+.stage-name{font-size:11px;color:#9a7840;letter-spacing:0.1em;flex-shrink:0;width:72px;}
+.stage-score{font-family:'Cinzel',Georgia,serif;font-size:18px;color:#7a5010;flex-shrink:0;width:52px;}
+.stage-desc{font-size:12px;color:#6a5030;line-height:1.7;}
+.story-quote{font-size:14px;color:#3a2808;line-height:1.9;border-top:1px solid #d4c8a8;padding-top:16px;font-style:italic;}
+.story-quote strong{color:#7a5010;font-style:normal;}
+.story-meta{font-size:10px;color:#9a7840;letter-spacing:0.14em;margin-top:12px;}
+
+.quotes{display:flex;flex-direction:column;gap:16px;}
+.quote-card{
+  background:#fffdf5;border-left:2px solid #c8a84a;padding:20px 24px;
+  border-radius:0 3px 3px 0;box-shadow:0 2px 6px rgba(160,120,40,0.06);
+}
+.quote-text{font-size:14px;color:#2c2010;line-height:1.9;font-style:italic;margin-bottom:10px;}
+.quote-meta{font-size:10px;color:#9a7840;letter-spacing:0.14em;}
+.quote-score{
+  display:inline-block;margin-left:8px;background:#e8f0d8;color:#3a6a18;
+  padding:2px 8px;border-radius:2px;font-size:10px;letter-spacing:0.1em;
+}
+
+.approach{display:flex;flex-direction:column;gap:12px;}
+.approach-item{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:22px 24px;background:#fffdf5;border:1px solid #d4c8a8;
+  border-radius:3px;box-shadow:0 2px 6px rgba(160,120,40,0.05);
+}
+.approach-num{font-family:'Cinzel',Georgia,serif;font-size:20px;color:#c8a84a;flex-shrink:0;width:28px;text-align:center;margin-top:2px;}
+.approach-title{font-size:13px;color:#5a3808;letter-spacing:0.08em;margin-bottom:8px;font-weight:bold;}
+.approach-desc{font-size:13px;color:#6a4820;line-height:1.9;}
+
+.cta{background:#00260D;text-align:center;padding:56px 32px;}
+.cta-text{font-size:13px;color:#6a8a50;letter-spacing:0.08em;margin-bottom:28px;line-height:2;}
+.cta-btn{
+  display:inline-block;padding:14px 36px;border:1px solid #c8a84a;color:#D1B06B;
+  font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:0.14em;
+  text-decoration:none;transition:all 0.2s;border-radius:2px;
+}
+.cta-btn:hover{background:rgba(200,168,74,0.12);border-color:#f5d060;}
+
+footer{
+  text-align:center;padding:24px;background:#00260D;
+  border-top:1px solid #1a3a10;font-size:10px;color:#3a5a28;letter-spacing:0.14em;
+}
+
+@media(max-width:480px){
+  .numbers{grid-template-columns:repeat(2,1fr);}
+  .number-big{font-size:24px;}
+  nav{padding:14px 16px;}
+  .nav-brand{font-size:10px;letter-spacing:0.12em;}
+  .nav-links{gap:14px;}
+  .section{padding:36px 20px;}
+  .stage{flex-wrap:wrap;}
+  .hero{padding:56px 24px 44px;}
+  .hero-tagline{font-size:15px;}
+  .who-box{padding:22px 20px;}
+  .story-card{padding:22px 20px 18px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 3 L77 17 L77 45 Q77 71 40 87 Q3 71 3 45 L3 17 Z" fill="#00260D" stroke="#D1B06B" stroke-width="2.5"/>
+      <path d="M40 9 L71 21 L71 45 Q71 66 40 80 Q9 66 9 45 L9 21 Z" fill="none" stroke="#c8a84a" stroke-width="0.8" opacity="0.5"/>
+      <text x="40" y="56" font-family="Georgia,serif" font-size="30" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
+    </svg>
+    <span class="nav-brand">REMARCABLE ENGLISH</span>
+  </a>
+  <div class="nav-links">
+    <a href="/">首頁</a>
+    <a href="/GSATvocab3-4/">學測搭配詞</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">ABOUT · MARC</div>
+  <div class="hero-divider"></div>
+  <p class="hero-tagline">
+    在學習語言的路程裡，<br>
+    每個人都有自己的卡關處。<br><br>
+    有時是詞彙，有時是邏輯，<br>
+    有時候則是某個從國小就沒修好的觀念。<br><br>
+    而我喜歡的，就是找到那個點，<br>
+    然後<strong>我們一起把它解開</strong>。
+  </p>
+</div>
+
+<div class="section">
+  <div class="section-label">TRACK RECORD</div>
+  <div class="numbers">
+    <div class="number-item">
+      <span class="number-big">10+</span>
+      <span class="number-label">年教學資歷</span>
+    </div>
+    <div class="number-item">
+      <span class="number-big">398</span>
+      <span class="number-label">份學生回饋紀錄</span>
+    </div>
+    <div class="number-item">
+      <span class="number-big">一年半</span>
+      <span class="number-label">英文斷 7 年<br>→ 建科榜首</span>
+    </div>
+    <div class="number-item">
+      <span class="number-big">7.0+</span>
+      <span class="number-label">巨匠線上 IELTS<br>榜單成績</span>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="section-label">WHO I WORK WITH</div>
+  <div class="who-box">
+    <p>來自四面八方，口耳相傳。我們的共同點只有一個：<strong>真的想要改變。</strong></p>
+    <p>學測英文頂標、滿級分，多益 900+，台政成北——這些是路途走完之後，留下的青春軌跡。</p>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="section-label">TEACHING PHILOSOPHY</div>
+  <div class="philosophy">
+    <div class="philosophy-flow">
+      <div class="flow-item"><div class="flow-dot"></div><span class="flow-text">no voice</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item"><div class="flow-dot"></div><span class="flow-text">own voice</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item"><div class="flow-dot"></div><span class="flow-text">make your voice heard</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item"><div class="flow-dot"></div><span class="flow-text">heard clearly</span></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item flow-final"><div class="flow-dot"></div><span class="flow-text">heard clearly and naturally</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="section-label">STUDENT STORY · 建國中學科學班</div>
+  <div class="story-card">
+    <div class="story-label">作文分數的變化</div>
+    <div class="story-stages">
+      <div class="stage">
+        <span class="stage-name">成長期</span>
+        <span class="stage-score">12分</span>
+        <span class="stage-desc">文法對、拼字對——但文章就是怪。補習班說「多寫一點」，問題還是在。</span>
+      </div>
+      <div class="stage">
+        <span class="stage-name">迷惘期</span>
+        <span class="stage-score">14分</span>
+        <span class="stage-desc">照別人建議堆砌難字和轉折詞，查了好幾次字典。分數有升，但文句還是不通。</span>
+      </div>
+      <div class="stage">
+        <span class="stage-name">完全體</span>
+        <span class="stage-score" style="color:#3a6a18;">16+分</span>
+        <span class="stage-desc">把那些轉折詞幾乎全刪掉，換上真正的連貫邏輯。文章有頭有尾、有條有理。</span>
+      </div>
+    </div>
+    <div class="story-quote">
+      「<strong>老師看完我的作文，馬上就知道問題所在。不同於其他人。</strong>他就說最大的問題出在開頭，所以教我開頭方法。被 Marc 訓練過後，我的作文分數馬上就升到 16 以上，且沒有再掉下去過。」
+    </div>
+    <div class="story-meta">建國中學科學班 · 學測英文作文 16+ 分</div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="section-label">STUDENT VOICES · IELTS</div>
+  <div class="quotes">
+    <div class="quote-card">
+      <div class="quote-text">「Marc 老師確實有效率地把握了教學重點，讓我很快在模擬測驗中看到自己的進步。老師在寫作課程中教授的答題技巧並不只是考試用，<strong>更讓我收穫了新的能力。</strong>」</div>
+      <div class="quote-meta">Cing<span class="quote-score">IELTS 7.0</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">「Marc 老師呈現出一種英文 high，<strong>沒有被考試綁死的感覺</strong>，那是一種對外語的熱愛，會被感染到。」</div>
+      <div class="quote-meta">Tina<span class="quote-score">IELTS 7.0 · L7.5 / R7.5</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">「感謝 Marc 老師在課堂上提到許多雅思考試會設的陷阱題。在聽力考試時的確有碰到，幸好有先知道如何應對，<strong>才不會因為緊張而亂了陣腳。</strong>」</div>
+      <div class="quote-meta">林潔馨<span class="quote-score">IELTS 7.0</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">「<strong>你值得被看見。</strong>」</div>
+      <div class="quote-meta">學生家長 · 口耳相傳，緣分到了自然會來</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="section-label">HOW I WORK</div>
+  <div class="approach">
+    <div class="approach-item">
+      <div class="approach-num">I</div>
+      <div>
+        <div class="approach-title">初次見面</div>
+        <div class="approach-desc">聊聊天，說說抱怨現在的卡關與困擾。把糾結的地方攤開來看看。聊著聊著，會發現，接下來的路其實一直都在那裡。</div>
+      </div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-num">II</div>
+      <div>
+        <div class="approach-title">一條完整的路</div>
+        <div class="approach-desc">有東西可說、找到精準的用字，最後把它自然地寫出來——乍看是條分開道路，卻是同一場成長的旅程。一起從學測的文字淬鍊，到雅思的邏輯表達，這段路，我們一起走。</div>
+      </div>
+    </div>
+    <div class="approach-item">
+      <div class="approach-num">III</div>
+      <div>
+        <div class="approach-title">關於自我</div>
+        <div class="approach-desc">在學習語言的路上，最重要的是只在乎想不想往前走。我很在意那份「想要變得更好」的意志——只要有這個念頭，剩下的，我們一起打磨，我們一起讓它發光。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <div class="cta-text">
+    也許，我們可以從這裡開始。
+  </div>
+  <a class="cta-btn" href="/GSATvocab3-4/">學測高分搭配詞 →</a>
+</div>
+
+<footer>© REMARCABLE ENGLISH · 馬克精緻語言訓練</footer>
+</body>
+</html>
