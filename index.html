@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Remarkable English｜馬克精緻語言訓練</title>
+<title>Remarcable English｜馬克精緻語言訓練</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDAyNjBEIiByeD0iNCIvPgogIDxwYXRoIGQ9Ik0xNiAzIEwyOSA4IEwyOSAxOCBRMjkgMjcgMTYgMzEgUTMgMjcgMyAxOCBMMyA4IFoiIGZpbGw9IiMwMDI2MEQiIHN0cm9rZT0iI0QxQjA2QiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMTYgNiBMMjYgMTAgTDI2IDE4IFEyNiAyNSAxNiAyOCBRNiAyNSA2IDE4IEw2IDEwIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2M4YTg0YSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNiIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjRDFCMDZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5NPC90ZXh0Pgo8L3N2Zz4=">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -14,7 +15,36 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
   position:relative;overflow:hidden;cursor:none;user-select:none;
 }
 #parchment-wrap{position:relative;width:360px;height:460px;}
-#parchment-svg{position:absolute;inset:0;width:100%;height:100%;}
+
+/* 純CSS牛皮紙質感，不用SVG filter */
+#parchment{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg, #e8d8a0 0%, #f4eacb 30%, #ecdcb4 60%, #e2d4a8 100%);
+  border-radius:3px;
+  box-shadow:
+    inset 0 0 40px rgba(160,120,40,0.15),
+    inset 2px 2px 8px rgba(200,160,60,0.1),
+    0 8px 32px rgba(0,0,0,0.5);
+}
+#parchment::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(180,140,50,0.3);
+  border-radius:2px;pointer-events:none;
+}
+#parchment::after{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(160,120,40,0.06) 28px,
+      rgba(160,120,40,0.06) 29px
+    );
+  border-radius:3px;pointer-events:none;
+}
+
 #parchment-content{
   position:absolute;inset:0;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -25,31 +55,36 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
   color:#8a6a1a;text-align:center;margin-bottom:3px;
 }
 #re-sub{font-size:10px;letter-spacing:0.24em;color:#a07830;margin-bottom:20px;text-align:center;}
-#divider-top{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-bottom:28px;}
-#three-jing{
-  display:flex;gap:20px;align-items:center;margin-bottom:20px;
+#divider-top{
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,#c8a84a,transparent);
+  margin-bottom:28px;
 }
+#three-jing{display:flex;gap:20px;align-items:center;margin-bottom:20px;}
 .jing-item{text-align:center;}
 .jing-zh{
   font-size:22px;color:#7a5810;display:block;
   letter-spacing:0.12em;line-height:1;
   font-family:Georgia,'Noto Serif TC',serif;
 }
-.jing-en{
-  font-size:9px;color:#a07830;letter-spacing:0.16em;
-  display:block;margin-top:5px;font-family:Georgia,serif;
-}
+.jing-en{font-size:9px;color:#a07830;letter-spacing:0.16em;display:block;margin-top:5px;font-family:Georgia,serif;}
 .jing-dot{font-size:18px;color:#c8a04a;opacity:0.5;}
-#divider-mid{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-bottom:20px;}
+#divider-mid{
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,#c8a84a,transparent);
+  margin-bottom:20px;
+}
 #voice-line{
   font-family:Georgia,serif;font-size:17px;color:#5a3e0a;
   text-align:center;letter-spacing:0.08em;font-style:italic;line-height:1.5;
 }
-#voice-sub{
-  font-size:9px;color:#9a7830;letter-spacing:0.2em;
-  text-align:center;margin-top:8px;font-family:Georgia,serif;
+#voice-sub{font-size:9px;color:#9a7830;letter-spacing:0.2em;text-align:center;margin-top:8px;font-family:Georgia,serif;}
+#divider-bot{
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,#c8a84a,transparent);
+  margin-top:24px;
 }
-#divider-bot{width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8a84a,transparent);margin-top:24px;}
+
 #slot-area{
   position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
   width:80px;height:90px;display:flex;align-items:center;justify-content:center;z-index:3;
@@ -83,15 +118,11 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
 #menu{
   display:none;flex-direction:column;align-items:center;gap:14px;
   width:100%;padding:40px 20px;min-height:100vh;
-  background:#001a09;animation:fadeUp 0.7s ease;
-  justify-content:center;
+  background:#001a09;animation:fadeUp 0.7s ease;justify-content:center;
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 .menu-logo{width:72px;height:80px;margin-bottom:6px;}
-.menu-title{
-  font-family:'Cinzel',Georgia,serif;font-size:19px;
-  color:#D1B06B;letter-spacing:0.1em;text-align:center;
-}
+.menu-title{font-family:'Cinzel',Georgia,serif;font-size:19px;color:#D1B06B;letter-spacing:0.1em;text-align:center;}
 .menu-sub{font-size:11px;color:#7a6030;letter-spacing:0.2em;margin-bottom:10px;font-family:Georgia,serif;}
 .menu-btn{
   width:280px;padding:14px 20px;background:transparent;border:1px solid #7a6030;
@@ -107,37 +138,28 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
   background:none;border:none;color:#5a4820;font-size:11px;cursor:pointer;
   letter-spacing:0.1em;text-decoration:underline;margin-top:6px;font-family:Georgia,serif;
 }
+
+/* 手機版 */
+@media(max-width:480px){
+  #parchment-wrap{width:min(340px, 92vw);height:440px;}
+  #re-title{font-size:11px;}
+  .jing-zh{font-size:19px;}
+  #voice-line{font-size:15px;}
+  nav{padding:14px 16px;}
+  .nav-links a{letter-spacing:0.08em;gap:16px;}
+}
 </style>
 </head>
 <body>
 
 <div id="stage">
   <div id="parchment-wrap">
-    <svg id="parchment-svg" viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="roughen">
-          <feTurbulence type="turbulence" baseFrequency="0.018" numOctaves="3" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-      </defs>
-      <path d="M18 12 Q20 7 30 9 L332 5 Q343 4 347 12 L351 20 Q355 26 353 36 L349 424 Q349 436 343 443 L338 450 Q331 456 319 454 L41 458 Q27 459 20 451 L13 444 Q7 436 8 424 L7 32 Q6 18 18 12Z" fill="#e2d4a8" filter="url(#roughen)"/>
-      <path d="M22 16 Q24 11 32 13 L330 9 Q341 8 345 16 L348 23 Q352 28 350 37 L346 420 Q346 432 340 439 L335 446 Q328 452 317 450 L43 454 Q29 455 22 447 L16 440 Q11 433 11 420 L10 34 Q9 21 22 16Z" fill="#ecdcb4"/>
-      <path d="M30 24 Q32 19 40 21 L322 17 Q333 16 337 24 L340 31 Q343 36 341 44 L337 414 Q337 426 331 432 L326 438 Q319 444 308 442 L52 446 Q39 447 32 440 L26 433 Q20 426 20 413 L21 42 Q20 28 30 24Z" fill="#f4eacb"/>
-      <line x1="55" y1="95" x2="305" y2="95" stroke="#b8982a" stroke-width="0.4" stroke-dasharray="3,8" opacity="0.3"/>
-      <line x1="55" y1="365" x2="305" y2="365" stroke="#b8982a" stroke-width="0.4" stroke-dasharray="3,8" opacity="0.3"/>
-      <rect x="28" y="18" width="304" height="422" fill="none" stroke="#b8902a" stroke-width="0.9" rx="2" opacity="0.28"/>
-      <rect x="36" y="26" width="288" height="406" fill="none" stroke="#b8902a" stroke-width="0.4" rx="1" opacity="0.18"/>
-      <path d="M28 26 L44 42" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
-      <path d="M332 24 L316 40" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
-      <path d="M28 434 L46 418" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
-      <path d="M332 436 L314 420" stroke="#a07828" stroke-width="0.6" opacity="0.22"/>
-    </svg>
+    <div id="parchment"></div>
 
     <div id="parchment-content">
-      <div id="re-title">REMARKABLE ENGLISH</div>
+      <div id="re-title">REMARCABLE ENGLISH</div>
       <div id="re-sub">馬克精緻語言訓練</div>
       <div id="divider-top"></div>
-
       <div id="three-jing">
         <div class="jing-item">
           <span class="jing-zh">精緻</span>
@@ -154,7 +176,6 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
           <span class="jing-en">mastery</span>
         </div>
       </div>
-
       <div id="divider-mid"></div>
       <div id="voice-line">make your voice heard</div>
       <div id="voice-sub">clearly · naturally · yours</div>
@@ -186,7 +207,7 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
     <path d="M40 9 L71 21 L71 45 Q71 66 40 80 Q9 66 9 45 L9 21 Z" fill="none" stroke="#c8a84a" stroke-width="0.8" opacity="0.5"/>
     <text x="40" y="56" font-family="Georgia,serif" font-size="30" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
   </svg>
-  <div class="menu-title">REMARKABLE ENGLISH</div>
+  <div class="menu-title">REMARCABLE ENGLISH</div>
   <div class="menu-sub">馬克精緻語言訓練</div>
   <a class="menu-btn" href="./GSATvocab3-4/">
     <span class="menu-icon">📖</span>
@@ -194,7 +215,7 @@ body{background:#001a09;min-height:100vh;display:flex;align-items:center;justify
   </a>
   <a class="menu-btn" href="./about.html">
     <span class="menu-icon">🛡️</span>
-    <span><span class="menu-txt-title">關於 Marc 老師</span><span class="menu-txt-desc">你不用說，我就知道問題在哪</span></span>
+    <span><span class="menu-txt-title">關於 Marc</span><span class="menu-txt-desc">在學習語言的路程裡，一起把它解開</span></span>
   </a>
   <button class="back-btn" onclick="reset()">← experience again</button>
 </div>
@@ -218,44 +239,57 @@ const instr=document.getElementById('instruction');
 const menu=document.getElementById('menu');
 let mx=0,my=0,snapped=false;
 
-document.addEventListener('mousemove',e=>{
-  cur.style.left=e.clientX+'px';
-  cur.style.top=e.clientY+'px';
-});
-stage.addEventListener('mouseenter',()=>{if(!snapped)cur.style.display='block';});
-stage.addEventListener('mouseleave',()=>{cur.style.display='none';});
+// 偵測手機，不啟用cursor遊標效果
+const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-stage.addEventListener('mousemove',e=>{
-  if(snapped)return;
-  const r=stage.getBoundingClientRect();
-  mx=e.clientX-r.left;my=e.clientY-r.top;
-  const sa=document.getElementById('slot-area').getBoundingClientRect();
-  const cx=sa.left-r.left+sa.width/2;
-  const cy=sa.top-r.top+sa.height/2;
-  const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
-  if(d<72){
-    slotPath.classList.add('glow');
-    instr.textContent='release to lock it in ✦';
-    instr.style.color='#f5d060';
-    cur.style.transform=`translate(-50%,-50%) scale(${1.08+0.07*(1-d/72)})`;
-  } else {
-    slotPath.classList.remove('glow');
-    instr.textContent='bring the shield to the slot';
-    instr.style.color='#D1B06B';
-    cur.style.transform='translate(-50%,-50%) scale(1)';
-  }
-});
-
-stage.addEventListener('click',e=>{
-  if(snapped)return;
-  const r=stage.getBoundingClientRect();
-  mx=e.clientX-r.left;my=e.clientY-r.top;
-  const sa=document.getElementById('slot-area').getBoundingClientRect();
-  const cx=sa.left-r.left+sa.width/2;
-  const cy=sa.top-r.top+sa.height/2;
-  const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
-  if(d<90)doSnap();
-});
+if(!isMobile){
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px';
+    cur.style.top=e.clientY+'px';
+  });
+  stage.addEventListener('mouseenter',()=>{if(!snapped)cur.style.display='block';});
+  stage.addEventListener('mouseleave',()=>{cur.style.display='none';});
+  stage.addEventListener('mousemove',e=>{
+    if(snapped)return;
+    const r=stage.getBoundingClientRect();
+    mx=e.clientX-r.left;my=e.clientY-r.top;
+    const sa=document.getElementById('slot-area').getBoundingClientRect();
+    const cx=sa.left-r.left+sa.width/2;
+    const cy=sa.top-r.top+sa.height/2;
+    const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
+    if(d<72){
+      slotPath.classList.add('glow');
+      instr.textContent='release to lock it in ✦';
+      instr.style.color='#f5d060';
+      cur.style.transform=`translate(-50%,-50%) scale(${1.08+0.07*(1-d/72)})`;
+    } else {
+      slotPath.classList.remove('glow');
+      instr.textContent='bring the shield to the slot';
+      instr.style.color='#D1B06B';
+      cur.style.transform='translate(-50%,-50%) scale(1)';
+    }
+  });
+  stage.addEventListener('click',e=>{
+    if(snapped)return;
+    const r=stage.getBoundingClientRect();
+    mx=e.clientX-r.left;my=e.clientY-r.top;
+    const sa=document.getElementById('slot-area').getBoundingClientRect();
+    const cx=sa.left-r.left+sa.width/2;
+    const cy=sa.top-r.top+sa.height/2;
+    const d=Math.sqrt((mx-cx)**2+(my-cy)**2);
+    if(d<90)doSnap();
+  });
+} else {
+  // 手機版：直接點盾牌槽口觸發
+  stage.style.cursor='default';
+  instr.textContent='點擊盾牌鑲嵌';
+  document.getElementById('slot-area').addEventListener('click',()=>{
+    if(!snapped)doSnap();
+  });
+  // 手機版slot加大點擊區域
+  document.getElementById('slot-area').style.width='120px';
+  document.getElementById('slot-area').style.height='130px';
+}
 
 function doSnap(){
   snapped=true;cur.style.display='none';
@@ -277,7 +311,8 @@ function reset(){
   slotPath.style.display='';slotLabel.style.display='';
   slotPath.classList.remove('glow');
   glowRing.style.opacity='0';glowRing.style.transform='translateX(-50%) scale(0.8)';
-  instr.textContent='bring the shield to the slot';instr.style.color='#D1B06B';
+  instr.textContent=isMobile?'點擊盾牌鑲嵌':'bring the shield to the slot';
+  instr.style.color='#D1B06B';
   cur.style.display='none';
 }
 </script>
