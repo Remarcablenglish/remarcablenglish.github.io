@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>文氣籤筒｜Remarcable English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#00260D;
+  --deep2:#003815;
+  --gold:#D1B06B;
+  --gold-hi:#f0dCA8;
+  --cream:#faf8f3;
+  --ink:#2c2a25;
+  --muted:#7a7568;
+  --border:#e8e4da;
+  --wood:#8a5a2b;
+  --wood-dark:#5e3a17;
+  --red:#a33327;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,'Noto Sans TC','PingFang TC',sans-serif;
+  background:var(--cream);color:var(--ink);
+  font-size:15px;line-height:1.6;
+  max-width:680px;margin:0 auto;padding-bottom:60px;
+}
+
+/* ── header ── */
+header{
+  background:var(--deep);
+  padding:18px 20px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.h-title{display:flex;flex-direction:column;gap:3px;}
+.h-en{font-family:'Cinzel',Georgia,serif;font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--gold);}
+.h-zh{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:900;letter-spacing:.3em;color:var(--gold-hi);}
+.h-sub{font-size:10px;color:#c8b98a;letter-spacing:.12em;}
+.h-back{font-size:11px;color:#9fb08a;text-decoration:none;letter-spacing:.06em;white-space:nowrap;opacity:.85;}
+.h-back:hover{color:var(--gold);}
+
+/* ── quota bar ── */
+.quota-bar{
+  background:var(--deep2);
+  padding:8px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:#c8b98a;letter-spacing:.05em;
+}
+.quota-sticks{display:flex;gap:5px;}
+.q-dot{
+  width:9px;height:22px;border-radius:3px;
+  background:linear-gradient(180deg,var(--gold-hi),var(--gold));
+  transition:opacity .3s, filter .3s;
+}
+.q-dot.used{opacity:.18;filter:grayscale(1);}
+
+/* ── genre tabs ── */
+.tabs{display:flex;gap:8px;padding:16px 20px 4px;}
+.tab{
+  flex:1;padding:9px 0;text-align:center;
+  border:1.5px solid var(--border);border-radius:24px;
+  background:#fff;font-size:14px;letter-spacing:.2em;
+  color:var(--muted);cursor:pointer;transition:all .18s;
+  font-family:'Noto Serif TC',serif;font-weight:600;
+}
+.tab.active{background:var(--deep);border-color:var(--deep);color:var(--gold-hi);}
+
+/* ── stage ── */
+.stage{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;
+  padding:26px 20px 10px;
+  min-height:300px;
+}
+.tube-wrap{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.tube{
+  width:130px;height:180px;
+  background:linear-gradient(90deg,var(--wood-dark) 0%,var(--wood) 22%,#a9773f 50%,var(--wood) 78%,var(--wood-dark) 100%);
+  border-radius:14px 14px 22px 22px;
+  position:relative;
+  box-shadow:0 14px 30px rgba(0,38,13,.28), inset 0 -14px 22px rgba(0,0,0,.25);
+}
+.tube::before{
+  content:'';position:absolute;top:-9px;left:-6px;right:-6px;height:20px;
+  background:linear-gradient(90deg,#3f2810,#6d4a20 25%,#8a5f2e 50%,#6d4a20 75%,#3f2810);
+  border-radius:50%/70%;
+  box-shadow:inset 0 3px 5px rgba(0,0,0,.5);
+}
+.tube-band{
+  position:absolute;left:-3px;right:-3px;height:10px;
+  background:linear-gradient(90deg,#8a6a2e,var(--gold) 30%,var(--gold-hi) 50%,var(--gold) 70%,#8a6a2e);
+  border-radius:4px;
+  box-shadow:0 1px 3px rgba(0,0,0,.35);
+}
+.band-1{top:34px;}
+.band-2{bottom:26px;}
+.tube-seal{
+  position:absolute;top:58px;left:50%;transform:translateX(-50%);
+  width:56px;height:56px;border-radius:50%;
+  background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;color:#f5e6c0;
+  letter-spacing:.05em;
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.3);
+  border:2px solid rgba(245,230,192,.5);
+}
+.tube-sticks{
+  position:absolute;top:-46px;left:50%;transform:translateX(-50%);
+  display:flex;gap:7px;align-items:flex-end;z-index:-1;
+}
+.t-stick{
+  width:10px;background:linear-gradient(180deg,#e9d9ae,#c9ac6e);
+  border-radius:4px 4px 0 0;
+  box-shadow:1px 0 2px rgba(0,0,0,.2);
+}
+.ts1{height:52px;}.ts2{height:66px;}.ts3{height:46px;}.ts4{height:60px;}.ts5{height:54px;}
+
+.tube-hint{
+  margin-top:22px;font-size:13px;color:var(--muted);letter-spacing:.15em;text-align:center;
+}
+.tube-hint strong{color:var(--deep);letter-spacing:.2em;}
+
+@keyframes shake{
+  0%,100%{transform:rotate(0);}
+  15%{transform:rotate(-7deg) translateY(-4px);}
+  30%{transform:rotate(6deg);}
+  45%{transform:rotate(-5deg) translateY(-3px);}
+  60%{transform:rotate(4deg);}
+  75%{transform:rotate(-2deg);}
+}
+.tube-wrap.shaking .tube{animation:shake .8s ease-in-out;}
+.tube-wrap.shaking .tube-sticks{animation:shake .8s ease-in-out reverse;}
+
+.cooldown-tag{
+  position:absolute;inset:0;display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:4px;
+  background:rgba(0,38,13,.78);border-radius:14px 14px 22px 22px;
+  color:var(--gold-hi);font-size:12px;letter-spacing:.1em;text-align:center;padding:10px;
+  z-index:5;
+}
+.cooldown-tag .cd-num{font-family:'Cinzel',serif;font-size:30px;font-weight:700;color:var(--gold);}
+.tube-wrap.cooling .cooldown-tag{display:flex;}
+
+/* ── daily golden draw ── */
+.daily-row{padding:6px 20px 0;display:flex;justify-content:center;}
+.daily-btn{
+  border:none;cursor:pointer;
+  background:linear-gradient(135deg,#b8922a,var(--gold) 40%,var(--gold-hi) 55%,var(--gold) 70%,#b8922a);
+  color:var(--deep);font-weight:700;font-size:13px;letter-spacing:.18em;
+  padding:10px 26px;border-radius:24px;
+  box-shadow:0 4px 14px rgba(184,146,42,.4);
+  font-family:'Noto Serif TC',serif;
+  transition:transform .15s, opacity .3s;
+}
+.daily-btn:active{transform:scale(.96);}
+.daily-btn:disabled{opacity:.35;cursor:default;box-shadow:none;}
+
+/* ── results ── */
+.results{padding:18px 16px 8px;display:flex;flex-direction:column;gap:12px;}
+.stick-card{
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:14px 16px 13px;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(18px);
+  animation:rise .5s ease forwards;
+  border-left:4px solid var(--gold);
+}
+.stick-card.gold-draw{
+  border:1px solid var(--gold);border-left:5px solid #b8922a;
+  background:linear-gradient(160deg,#fffdf5,#fbf3dd);
+  box-shadow:0 4px 16px rgba(184,146,42,.18);
+}
+.stick-card:nth-child(1){animation-delay:.05s;}
+.stick-card:nth-child(2){animation-delay:.22s;}
+.stick-card:nth-child(3){animation-delay:.4s;}
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+.sc-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sc-tag{
+  font-size:10px;font-weight:700;letter-spacing:.15em;
+  background:var(--deep);color:var(--gold-hi);
+  padding:2px 9px;border-radius:10px;flex-shrink:0;
+  font-family:'Noto Serif TC',serif;
+}
+.sc-stars{font-size:11px;color:#b8922a;letter-spacing:2px;flex-shrink:0;}
+.gold-label{
+  font-size:10px;font-weight:700;color:#b8922a;letter-spacing:.25em;
+  margin-bottom:4px;font-family:'Noto Serif TC',serif;
+}
+
+/* 醜小鴨 → 天鵝 */
+.sc-before{
+  margin-top:9px;
+  display:flex;align-items:baseline;gap:7px;
+  font-size:13.5px;color:#a09a8c;
+}
+.sc-before .b-icon{flex-shrink:0;font-size:13px;filter:grayscale(.4);}
+.sc-before .b-text{text-decoration:line-through;text-decoration-color:#c9b08a;text-decoration-thickness:1.5px;}
+.sc-arrow{
+  margin:2px 0 2px 3px;
+  font-size:12px;color:var(--gold);letter-spacing:.1em;
+  display:flex;align-items:center;gap:6px;
+}
+.sc-arrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.sc-after{
+  display:flex;align-items:baseline;gap:7px;
+}
+.sc-after .a-icon{flex-shrink:0;font-size:14px;}
+.sc-en{font-size:17px;font-weight:700;color:var(--ink);line-height:1.45;}
+.sc-zh{font-size:13px;color:var(--muted);margin-top:2px;padding-left:23px;}
+.sc-ex{
+  margin-top:9px;padding:8px 11px 8px 23px;position:relative;
+  background:var(--cream);border-radius:8px;
+  font-size:13px;color:#555;font-style:italic;line-height:1.55;
+}
+.gold-draw .sc-ex{background:rgba(255,255,255,.65);}
+.sc-ex::before{
+  content:'例';position:absolute;left:7px;top:9px;
+  font-style:normal;font-size:9px;color:var(--gold);
+  font-family:'Noto Serif TC',serif;font-weight:700;
+}
+.sc-actions{margin-top:9px;display:flex;gap:8px;justify-content:flex-end;}
+.sc-copy{
+  border:1px solid var(--border);background:#fff;border-radius:8px;
+  font-size:12px;padding:3px 12px;cursor:pointer;color:var(--muted);
+  transition:all .15s;
+}
+.sc-copy:active{background:var(--deep);color:var(--gold-hi);border-color:var(--deep);}
+
+/* notices */
+.notice{
+  margin:14px 20px 0;padding:16px;text-align:center;
+  border:1.5px dashed var(--gold);border-radius:12px;
+  color:var(--muted);font-size:13px;line-height:1.8;
+  display:none;
+}
+.notice strong{color:var(--deep);}
+.notice.show{display:block;}
+
+/* footer */
+.foot{
+  margin:34px 20px 0;padding:22px 18px;
+  background:var(--deep);border-radius:14px;text-align:center;
+}
+.foot-line{
+  font-family:'Noto Serif TC',serif;font-weight:600;
+  color:var(--gold-hi);font-size:15px;letter-spacing:.12em;line-height:1.9;
+}
+.foot-line em{font-style:normal;color:var(--gold);border-bottom:1px solid rgba(209,176,107,.4);padding-bottom:1px;}
+.foot-btns{margin-top:14px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.foot-line-btn{
+  background:var(--gold);color:#1a1a1a;text-decoration:none;
+  font-size:14px;padding:9px 26px;border-radius:2px;letter-spacing:.08em;
+}
+.foot-mail-btn{
+  color:#e8e0d0;text-decoration:none;border:1px solid var(--gold);
+  font-size:14px;padding:9px 26px;border-radius:2px;letter-spacing:.08em;
+}
+.brand-foot{
+  text-align:center;margin-top:22px;
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;color:var(--muted);
+}
+
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:8px 18px;border-radius:20px;
+  font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:999;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  .tube-wrap.shaking .tube,.tube-wrap.shaking .tube-sticks{animation:none;}
+  .stick-card{animation-duration:.01s;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-title">
+    <div class="h-en">REMARCABLE ENGLISH</div>
+    <div class="h-zh">文氣籤筒</div>
+    <div class="h-sub">不知道怎麼寫，就搖一支</div>
+  </div>
+  <a class="h-back" href="../">← 回首頁</a>
+</header>
+
+<div class="quota-bar">
+  <span>今日籤運</span>
+  <div class="quota-sticks" id="quotaSticks"></div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-g="argue">議論筒</div>
+  <div class="tab" data-g="narrate">記敘筒</div>
+</div>
+
+<div class="stage">
+  <div class="tube-wrap" id="tubeWrap" onclick="shake()">
+    <div class="tube-sticks">
+      <div class="t-stick ts1"></div><div class="t-stick ts2"></div><div class="t-stick ts3"></div><div class="t-stick ts4"></div><div class="t-stick ts5"></div>
+    </div>
+    <div class="tube">
+      <div class="tube-band band-1"></div>
+      <div class="tube-band band-2"></div>
+      <div class="tube-seal">籤</div>
+      <div class="cooldown-tag">
+        <div>籤筒冷卻中</div>
+        <div class="cd-num" id="cdNum">60</div>
+        <div>好句需要沉澱</div>
+      </div>
+    </div>
+  </div>
+  <div class="tube-hint">點籤筒 <strong>搖一次</strong>，出三支</div>
+</div>
+
+<div class="daily-row">
+  <button class="daily-btn" id="dailyBtn" onclick="dailyDraw()">🌟 每日一搖 · 金籤保底 ★★★</button>
+</div>
+
+<div class="notice" id="notice"></div>
+
+<div class="results" id="results"></div>
+
+<div class="foot">
+  <div class="foot-line">籤筒解決一句話。<br>整篇文章的事，<em>找 Marc</em>。</div>
+  <div class="foot-btns">
+    <a class="foot-line-btn" href="https://line.me/R/ti/p/@043hgzgn" target="_blank" rel="noopener">LINE 諮詢</a>
+    <a class="foot-mail-btn" href="mailto:97ag503@gmail.com">✉ Email</a>
+  </div>
+</div>
+
+<div class="brand-foot">REMARCABLE ENGLISH · PRECISION IN EVERY WORD</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════ 籤庫 ═══════════
+   b = 醜小鴨（學生常寫的版本） e = 天鵝（升級版） z = 中文
+   ex = 簡易例句  s = 強度 1★(L3) 2★★(L4) 3★★★(L5)              */
+const POOL = {
+argue:[
+/* ── 表態 ── */
+{t:'表態',s:2,b:'Obviously, we can see that…',e:'It is evident that…',z:'顯而易見…',
+ ex:'It is evident that sleep affects memory more than most students realize.'},
+{t:'表態',s:2,b:'No one can deny that…',e:'…is beyond dispute',z:'…無可爭辯',
+ ex:'The link between exercise and mental health is beyond dispute.'},
+{t:'表態',s:2,b:'most of the people',e:'the vast majority of…',z:'壓倒性多數的…',
+ ex:'The vast majority of teenagers check their phones within minutes of waking up.'},
+{t:'表態',s:1,b:'There are many evidences to show…',e:'Solid evidence suggests that…',z:'有力的證據顯示…',
+ ex:'Solid evidence suggests that reading habits shape writing ability.'},
+{t:'表態',s:3,b:'I strongly agree with…',e:'I would advocate for…',z:'我主張／為…發聲',
+ ex:'I would advocate for later school start times to protect students\u2019 sleep.'},
+{t:'表態',s:1,b:'This is the most emergency problem.',e:'…ranks among the most pressing issues',z:'…名列最迫切的議題之一',
+ ex:'Climate change ranks among the most pressing issues of our generation.'},
+/* ── 讓步 ── */
+{t:'讓步',s:3,b:'Although it is good, but…',e:'I concede that…, but…',z:'我承認…，但…',
+ ex:'I concede that technology saves time, but it quietly steals our attention.'},
+{t:'讓步',s:2,b:'Some people may not agree with…',e:'Some may have reservations about…',z:'有些人可能對…有所顧慮',
+ ex:'Some may have reservations about online learning, yet its flexibility is undeniable.'},
+{t:'讓步',s:2,b:'The opposite is also right.',e:'The converse is also true.',z:'反之亦然。',
+ ex:'Success requires effort; the converse is also true — effort rarely goes unrewarded.'},
+{t:'讓步',s:1,b:'We still don\u2019t know if it will work.',e:'It remains to be seen whether…',z:'…仍有待觀察',
+ ex:'It remains to be seen whether the new policy will change anything.'},
+{t:'讓步',s:3,b:'This idea is wrong at first.',e:'This argument rests on a flawed premise.',z:'這個論點建立在錯誤的前提上。',
+ ex:'The plan rests on a flawed premise: that everyone has equal access to the internet.'},
+{t:'讓步',s:2,b:'We should not just think it is useless.',e:'…should not be dismissed as…',z:'…不應被輕易否定為…',
+ ex:'Gaming should not be dismissed as a waste of time; it trains real skills.'},
+{t:'讓步',s:1,b:'It makes people doubt about it.',e:'This casts doubt on…',z:'這使人對…產生懷疑',
+ ex:'The missing data casts doubt on the study\u2019s conclusion.'},
+/* ── 因果 ── */
+{t:'因果',s:3,b:'It is because of…',e:'…can be attributed to…',z:'…可歸因於…',
+ ex:'Her improvement can be attributed to consistent daily practice.'},
+{t:'因果',s:2,b:'The problem comes from…',e:'…stems from…',z:'…源自於…',
+ ex:'Most exam anxiety stems from a fear of disappointing others.'},
+{t:'因果',s:1,b:'Because of this problem,…',e:'In response to…, …',z:'為了因應…，…',
+ ex:'In response to rising stress levels, the school introduced quiet study zones.'},
+{t:'因果',s:3,b:'It caused a lot of…',e:'…triggered a wave of…',z:'…引發了一波…',
+ ex:'The announcement triggered a wave of protest among students.'},
+{t:'因果',s:2,b:'It made people start to argue.',e:'…sparked a heated debate',z:'…引爆了激烈辯論',
+ ex:'The new dress code sparked a heated debate on campus.'},
+{t:'因果',s:3,b:'It makes us think more about…',e:'…provokes deeper reflection on…',z:'…激發對…更深的反思',
+ ex:'The film provokes deeper reflection on what success really means.'},
+{t:'因果',s:1,b:'It is helpful for the future of…',e:'…paves the way for…',z:'…為…鋪路',
+ ex:'Small daily habits pave the way for lasting change.'},
+{t:'因果',s:1,b:'It makes the problem more worse.',e:'…only adds fuel to the fire',z:'…只會火上加油',
+ ex:'Blaming each other only adds fuel to the fire.'},
+/* ── 凸顯 ── */
+{t:'凸顯',s:3,b:'It shows that we really need…',e:'This highlights the urgent need for…',z:'這凸顯了對…的迫切需求',
+ ex:'The accident highlights the urgent need for safer crosswalks near schools.'},
+{t:'凸顯',s:3,b:'More and more evidences show…',e:'There is mounting evidence that…',z:'越來越多的證據顯示…',
+ ex:'There is mounting evidence that short videos are reshaping attention spans.'},
+{t:'凸顯',s:3,b:'It is very different from…',e:'…stands in striking contrast to…',z:'…與…形成顯著對比',
+ ex:'His calm words stood in striking contrast to his shaking hands.'},
+{t:'凸顯',s:3,b:'No one talks about it at all.',e:'…is strikingly absent from the discussion',z:'…在討論中明顯缺席',
+ ex:'Students\u2019 own voices are strikingly absent from the discussion about education.'},
+{t:'凸顯',s:3,b:'We can see this problem in…',e:'The problem manifests itself in…',z:'這個問題以…的形式呈現',
+ ex:'The pressure manifests itself in sleepless nights and skipped meals.'},
+{t:'凸顯',s:2,b:'There is a big difference between…',e:'There is a wide gulf between… and…',z:'…與…之間存在巨大鴻溝',
+ ex:'There is a wide gulf between knowing a word and truly owning it.'},
+/* ── 問題 ── */
+{t:'問題',s:3,b:'It gives a lot of pressure to…',e:'…puts enormous strain on…',z:'…對…造成巨大負擔',
+ ex:'Endless testing puts enormous strain on students and teachers alike.'},
+{t:'問題',s:3,b:'It makes people not trust it anymore.',e:'…gradually undermines public trust',z:'…逐步侵蝕大眾的信任',
+ ex:'Broken promises gradually undermine public trust in institutions.'},
+{t:'問題',s:1,b:'It brings a bad feeling to…',e:'…casts a shadow over…',z:'…使…蒙上陰影',
+ ex:'One careless comment cast a shadow over the entire celebration.'},
+{t:'問題',s:2,b:'They can do nothing and just be controlled by…',e:'…are left at the mercy of…',z:'…只能任憑…擺佈',
+ ex:'Without savings, families are left at the mercy of rising prices.'},
+{t:'問題',s:3,b:'It is very lack of…',e:'an acute shortage of…',z:'…的嚴重短缺',
+ ex:'Rural schools face an acute shortage of qualified teachers.'},
+{t:'問題',s:3,b:'The price becomes higher and higher.',e:'As costs continue to soar, …',z:'隨著成本持續飆升，…',
+ ex:'As housing costs continue to soar, young people delay their dreams.'},
+{t:'問題',s:2,b:'the things that stop us from improving',e:'the barriers to progress',z:'阻礙進展的重重障礙',
+ ex:'Fear of failure remains one of the greatest barriers to progress.'},
+{t:'問題',s:3,b:'It makes the policy become useless.',e:'…renders the policy virtually meaningless',z:'…使該政策形同虛設',
+ ex:'Weak enforcement renders the recycling policy virtually meaningless.'},
+{t:'問題',s:2,b:'Everything totally stops.',e:'…has come to a grinding halt',z:'…已陷入完全停擺',
+ ex:'Without funding, the project has come to a grinding halt.'},
+{t:'問題',s:3,b:'It makes people give up their honesty.',e:'…compromises one\u2019s integrity',z:'…犧牲了原則與誠信',
+ ex:'Winning at any cost ultimately compromises one\u2019s integrity.'},
+{t:'問題',s:3,b:'It is not fair to weak people.',e:'…exploits the most vulnerable',z:'…剝削最弱勢的群體',
+ ex:'Such schemes exploit the most vulnerable members of society.'},
+/* ── 解方 ── */
+{t:'解方',s:3,b:'The government should make a plan to…',e:'launch a nationwide initiative to…',z:'推動全國性倡議以…',
+ ex:'The government should launch a nationwide initiative to promote media literacy.'},
+{t:'解方',s:3,b:'Let people work together.',e:'foster cooperation between… and…',z:'促進…與…之間的合作',
+ ex:'Schools can foster cooperation between students and local communities.'},
+{t:'解方',s:3,b:'Help people to communicate more.',e:'facilitate open communication',z:'促進開放的溝通',
+ ex:'Regular family dinners facilitate open communication between generations.'},
+{t:'解方',s:3,b:'Find a new way to go.',e:'forge a path forward',z:'開闢前進的道路',
+ ex:'Together, we can forge a path forward that leaves no one behind.'},
+{t:'解方',s:2,b:'Make the gap smaller.',e:'bridge the gulf between… and…',z:'弭平…與…之間的差距',
+ ex:'Technology alone cannot bridge the gulf between rich and poor schools.'},
+{t:'解方',s:3,b:'The government should make a rule that…',e:'mandate that… (should) be…',z:'立法規定…必須…',
+ ex:'The law should mandate that all school buildings be earthquake-safe.'},
+{t:'解方',s:2,b:'Get rid of the problems of…',e:'break down the barriers to…',z:'打破…的藩籬',
+ ex:'Mentorship programs break down the barriers to higher education.'},
+{t:'解方',s:1,b:'Use the resources we already have.',e:'tap into existing resources',z:'善用既有資源',
+ ex:'Instead of building more, cities should tap into existing resources.'},
+{t:'解方',s:3,b:'Stop and think about the situation again.',e:'take stock of the situation',z:'重新盤點現況',
+ ex:'Before rushing to solutions, we must take stock of the situation.'},
+{t:'解方',s:2,b:'Fix the problem before it is too late.',e:'remedy the situation before…',z:'在…之前補救局面',
+ ex:'Swift action can still remedy the situation before it worsens.'},
+{t:'解方',s:3,b:'Teach young people to…',e:'steer the younger generation toward…',z:'引導年輕世代朝向…',
+ ex:'Good role models steer the younger generation toward healthier choices.'},
+/* ── 收束 ── */
+{t:'收束',s:3,b:'In conclusion,…',e:'In essence, …',z:'本質上而言，…',
+ ex:'In essence, education is not about grades but about becoming.'},
+{t:'收束',s:3,b:'I hope in the future everything will be better.',e:'We must envision a future where…',z:'我們必須展望一個…的未來',
+ ex:'We must envision a future where every child learns without fear.'},
+{t:'收束',s:3,b:'It proves the value of…',e:'…stands as a tribute to…',z:'…見證了…的價值',
+ ex:'Her scholarship stands as a tribute to ten years of quiet persistence.'},
+{t:'收束',s:3,b:'The good side will win at last.',e:'In the end, reason will prevail.',z:'最終，理性終將勝出。',
+ ex:'Debates may rage on, but in the end, reason will prevail.'},
+{t:'收束',s:2,b:'It can be used for a long time.',e:'…will endure the test of time',z:'…終將經得起時間的考驗',
+ ex:'Values taught at home will endure the test of time.'},
+{t:'收束',s:3,b:'Keep growing for a long time.',e:'sustain long-term growth',z:'維繫長遠的發展',
+ ex:'Only balanced habits can sustain long-term growth.'},
+{t:'收束',s:2,b:'Get advantages for a long time.',e:'secure a long-term advantage',z:'確保長期優勢',
+ ex:'Learning to learn secures a long-term advantage no exam can measure.'},
+{t:'收束',s:1,b:'We should be brave to have dreams.',e:'Dare to dream.',z:'勇於夢想。',
+ ex:'The message of her story is simple: dare to dream.'}
+],
+narrate:[
+/* ── 心境 ── */
+{t:'心境',s:2,b:'I was very very nervous.',e:'I was seized by panic.',z:'我被恐慌攫住。',
+ ex:'When my name was called, I was seized by panic.'},
+{t:'心境',s:2,b:'I felt very scared.',e:'A sense of dread washed over me.',z:'一股恐懼感湧上心頭。',
+ ex:'Opening the envelope, a sense of dread washed over me.'},
+{t:'心境',s:2,b:'I was so worried at that time.',e:'I was consumed with anxiety.',z:'我被焦慮徹底吞噬。',
+ ex:'The night before the results, I was consumed with anxiety.'},
+{t:'心境',s:2,b:'I did not want to talk to anyone.',e:'I withdrew into myself.',z:'我封閉了自己。',
+ ex:'After the failure, I withdrew into myself for weeks.'},
+{t:'心境',s:1,b:'I felt better because of…',e:'I found comfort in…',z:'我在…之中找到安慰。',
+ ex:'I found comfort in my grandmother\u2019s quiet kitchen.'},
+{t:'心境',s:1,b:'I was so surprised.',e:'My heart leapt.',z:'我的心猛地一跳。',
+ ex:'My heart leapt when I saw my number on the list.'},
+{t:'心境',s:3,b:'I felt happy and sad at the same time.',e:'…left me with mixed sensations',z:'…讓我百感交集',
+ ex:'Graduation day left me with mixed sensations — pride tangled with loss.'},
+{t:'心境',s:2,b:'The pressure was too big for me.',e:'I nearly cracked under the pressure.',z:'我幾乎在壓力下崩潰。',
+ ex:'With three exams in one day, I nearly cracked under the pressure.'},
+{t:'心境',s:2,b:'I was always afraid of that day.',e:'I lived in dread of that moment.',z:'我一直懼怕那一刻的到來。',
+ ex:'For months, I lived in dread of the moment I would have to say goodbye.'},
+/* ── 轉折 ── */
+{t:'轉折',s:1,b:'Suddenly I knew that…',e:'It dawned on me that…',z:'我這才恍然意識到…',
+ ex:'It dawned on me that she had been helping me all along.'},
+{t:'轉折',s:1,b:'Although it was very difficult,…',e:'Against all odds, …',z:'克服萬難，…',
+ ex:'Against all odds, our team made it to the finals.'},
+{t:'轉折',s:2,b:'I was so lucky that…',e:'By a stroke of luck, …',z:'幸運之神眷顧，…',
+ ex:'By a stroke of luck, the last train was five minutes late.'},
+{t:'轉折',s:1,b:'I decided to just try it.',e:'I took a leap of faith.',z:'我縱身一躍，選擇相信。',
+ ex:'With nothing to lose, I took a leap of faith and raised my hand.'},
+{t:'轉折',s:2,b:'Everything changed very fast.',e:'At a stroke, everything changed.',z:'剎那之間，一切都變了。',
+ ex:'At a stroke, everything changed — the phone rang, and our lives split into before and after.'},
+{t:'轉折',s:2,b:'I caught the chance.',e:'I seized the moment.',z:'我抓住了那個瞬間。',
+ ex:'The door opened for one second, and I seized the moment.'},
+{t:'轉折',s:1,b:'I told myself to stop thinking too much.',e:'I snapped out of it.',z:'我猛然回過神來。',
+ ex:'A hand on my shoulder — I snapped out of it and kept walking.'},
+/* ── 氛圍 ── */
+{t:'氛圍',s:1,b:'very early in the morning',e:'at the crack of dawn',z:'破曉時分',
+ ex:'We set off at the crack of dawn, the streets still asleep.'},
+{t:'氛圍',s:1,b:'from morning to night',e:'from dawn to dusk',z:'從天明到日暮',
+ ex:'My father worked from dawn to dusk without a word of complaint.'},
+{t:'氛圍',s:2,b:'looking at the far place',e:'gazing into the distance',z:'凝望著遠方',
+ ex:'She stood by the window, gazing into the distance.'},
+{t:'氛圍',s:1,b:'I slowly forgot those things.',e:'The memories were beginning to fade.',z:'記憶正在漸漸淡去。',
+ ex:'Years passed, and the memories were beginning to fade — all but one.'},
+{t:'氛圍',s:1,b:'I remembered many things at that moment.',e:'A flood of memories hit me.',z:'回憶如潮水般湧來。',
+ ex:'The smell of rain on asphalt — and a flood of memories hit me.'},
+{t:'氛圍',s:1,b:'It was very very cold.',e:'in the bitter cold',z:'在刺骨的寒意中',
+ ex:'We waited in the bitter cold, breath rising like smoke.'},
+{t:'氛圍',s:1,b:'The light made a long shadow.',e:'…cast a long shadow across the room',z:'…在房裡拉出長長的影子',
+ ex:'The setting sun cast a long shadow across the empty classroom.'},
+/* ── 收尾 ── */
+{t:'收尾',s:2,b:'I tried my best to be strong.',e:'I endured it with dignity.',z:'我有尊嚴地承受了這一切。',
+ ex:'The loss hurt, but I endured it with dignity.'},
+{t:'收尾',s:2,b:'Finally I accepted it.',e:'I accepted it with grace.',z:'我優雅地接受了它。',
+ ex:'It was not the ending I wanted, but I accepted it with grace.'},
+{t:'收尾',s:1,b:'I cried in the end.',e:'I was reduced to tears.',z:'我終究潸然淚下。',
+ ex:'Reading her letter, I was reduced to tears.'},
+{t:'收尾',s:2,b:'Everything was useless.',e:'It was all in vain — or so I thought.',z:'一切終究徒勞——當時我是這麼想的。',
+ ex:'It was all in vain — or so I thought, until the phone rang.'},
+{t:'收尾',s:1,b:'It disappeared slowly.',e:'…and then it simply faded away',z:'…然後它就悄然消逝了',
+ ex:'The applause, the lights, the fear — and then it simply faded away.'},
+{t:'收尾',s:1,b:'It was a great ending.',e:'We went out with a bang.',z:'我們轟轟烈烈地收了場。',
+ ex:'For our last performance, we went out with a bang.'},
+{t:'收尾',s:1,b:'After some time, I felt better.',e:'Time slowly mended my broken heart.',z:'時間慢慢撫平了我的傷。',
+ ex:'Time slowly mended my broken heart, one ordinary morning at a time.'},
+{t:'收尾',s:3,b:'I started to think about my life.',e:'I finally took stock of my life.',z:'我終於重新審視了自己的人生。',
+ ex:'Sitting alone on the rooftop, I finally took stock of my life.'}
+]
+};
+
+/* ═══════════ 遊戲參數 ═══════════ */
+const DAILY_QUOTA = 5;
+const COOLDOWN_S  = 60;
+const DRAW_COUNT  = 3;
+
+const store = (()=>{try{localStorage.setItem('_t','1');localStorage.removeItem('_t');return localStorage;}
+ catch(e){const m={};return{getItem:k=>(k in m?m[k]:null),setItem:(k,v)=>{m[k]=String(v);},removeItem:k=>{delete m[k];}};}})();
+
+function today(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function resetIfNewDay(){
+  if(store.getItem('qt_date')!==today()){
+    store.setItem('qt_date',today());
+    store.setItem('qt_used','0');
+    store.setItem('qt_gold','0');
+    store.setItem('qt_last','0');
+  }
+}
+function used(){return parseInt(store.getItem('qt_used')||'0',10);}
+function goldUsed(){return store.getItem('qt_gold')==='1';}
+function lastShake(){return parseInt(store.getItem('qt_last')||'0',10);}
+function cooldownLeft(){
+  const left=COOLDOWN_S-Math.floor((Date.now()-lastShake())/1000);
+  return left>0?left:0;
+}
+
+let genre='argue';
+
+/* ═══════════ UI ═══════════ */
+function renderQuota(){
+  const el=document.getElementById('quotaSticks');
+  el.innerHTML='';
+  for(let i=0;i<DAILY_QUOTA;i++){
+    const d=document.createElement('div');
+    d.className='q-dot'+(i<used()?' used':'');
+    el.appendChild(d);
+  }
+}
+function showNotice(html){
+  const n=document.getElementById('notice');
+  n.innerHTML=html;n.classList.add('show');
+}
+function hideNotice(){document.getElementById('notice').classList.remove('show');}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);
+}
+function stars(n){return '★★★'.slice(0,n);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+let lastDraw=[];
+function stickHTML(item,idx,gold){
+  return `<div class="stick-card${gold?' gold-draw':''}">
+    ${gold?'<div class="gold-label">今日金籤</div>':''}
+    <div class="sc-top">
+      <span class="sc-tag">${item.t}</span>
+      <span class="sc-stars">${stars(item.s)}</span>
+    </div>
+    <div class="sc-before"><span class="b-icon">🐣</span><span class="b-text">${esc(item.b)}</span></div>
+    <div class="sc-arrow">蛻變</div>
+    <div class="sc-after"><span class="a-icon">🦢</span><span class="sc-en">${esc(item.e)}</span></div>
+    <div class="sc-zh">${esc(item.z)}</div>
+    <div class="sc-ex">${esc(item.ex)}</div>
+    <div class="sc-actions"><button class="sc-copy" onclick="copyStick(${idx})">複製句型＋例句</button></div>
+  </div>`;
+}
+
+function drawFrom(pool,n){
+  const bag=[...pool];
+  const out=[];
+  while(out.length<n&&bag.length){
+    out.push(bag.splice(Math.floor(Math.random()*bag.length),1)[0]);
+  }
+  return out;
+}
+
+/* ═══════════ 搖籤 ═══════════ */
+let cdTimer=null;
+function startCooldownUI(){
+  const wrap=document.getElementById('tubeWrap');
+  const num=document.getElementById('cdNum');
+  function tick(){
+    const left=cooldownLeft();
+    if(left<=0){wrap.classList.remove('cooling');clearInterval(cdTimer);cdTimer=null;return;}
+    wrap.classList.add('cooling');
+    num.textContent=left;
+  }
+  tick();
+  if(!cdTimer)cdTimer=setInterval(tick,500);
+}
+
+function shake(){
+  resetIfNewDay();
+  if(cooldownLeft()>0){
+    toast('冷卻中… 連 AI 都有使用額度，何況籤筒 😌');
+    startCooldownUI();
+    return;
+  }
+  if(used()>=DAILY_QUOTA){
+    showNotice('今日籤運已盡 🎋<br><strong>明日額度重置。</strong><br>等不及的話——整篇文章的事，直接找 Marc。');
+    toast('今日額度用完了');
+    return;
+  }
+  hideNotice();
+  const wrap=document.getElementById('tubeWrap');
+  wrap.classList.add('shaking');
+  setTimeout(()=>wrap.classList.remove('shaking'),850);
+
+  store.setItem('qt_used',String(used()+1));
+  store.setItem('qt_last',String(Date.now()));
+  renderQuota();
+
+  lastDraw=drawFrom(POOL[genre],DRAW_COUNT);
+  setTimeout(()=>{
+    document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,false)).join('');
+    if(used()>=DAILY_QUOTA){
+      showNotice('這是今天最後一搖 🎋<br>覺得不夠用？<strong>整篇文章的事，找 Marc。</strong>');
+    }else{
+      startCooldownUI();
+    }
+  },700);
+}
+
+/* ═══════════ 每日一搖 ═══════════ */
+function dailyDraw(){
+  resetIfNewDay();
+  if(goldUsed()){toast('今日金籤已抽過，明天再來 🌟');return;}
+  hideNotice();
+  const wrap=document.getElementById('tubeWrap');
+  wrap.classList.add('shaking');
+  setTimeout(()=>wrap.classList.remove('shaking'),850);
+
+  store.setItem('qt_gold','1');
+  updateDailyBtn();
+
+  const highPool=POOL[genre].filter(x=>x.s===3);
+  lastDraw=drawFrom(highPool.length?highPool:POOL[genre],1);
+  setTimeout(()=>{
+    document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,true)).join('');
+    toast('🌟 金籤降臨');
+  },700);
+}
+function updateDailyBtn(){
+  const b=document.getElementById('dailyBtn');
+  if(goldUsed()){b.disabled=true;b.textContent='🌟 今日金籤已抽 · 明日再來';}
+  else{b.disabled=false;b.textContent='🌟 每日一搖 · 金籤保底 ★★★';}
+}
+
+/* ═══════════ 複製 ═══════════ */
+function copyStick(idx){
+  const item=lastDraw[idx];
+  if(!item)return;
+  const text=item.e+'（'+item.z+'）\n例：'+item.ex;
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>toast('已複製，拿去用 ✅')).catch(()=>fallbackCopy(text));}
+  else fallbackCopy(text);
+}
+function fallbackCopy(t){
+  const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);
+  ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('已複製 ✅');
+}
+
+/* ═══════════ tabs ═══════════ */
+document.getElementById('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab');if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');genre=t.dataset.g;
+  document.getElementById('results').innerHTML='';
+  lastDraw=[];
+  hideNotice();
+});
+
+/* init */
+resetIfNewDay();
+renderQuota();
+updateDailyBtn();
+if(cooldownLeft()>0)startCooldownUI();
+</script>
+</body>
+</html>
