@@ -6,62 +6,44 @@
 <title>Remarcable English｜馬克精緻語言訓練</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #001a09; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; }
+    /* 全域設定 */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:#001a09; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; font-family:Georgia,serif;}
     
-    /* 將舞台設為垂直彈性佈局，確保所有內容依序排列，不會重疊 */
-    #stage {
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        position: relative;
+    /* 舞台區 (初始頁面) */
+    #stage{
+        width:100%; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+        position:relative; transition:opacity 0.9s; z-index:1;
     }
+    #parchment-wrap{position:relative; width:360px; height:460px;}
 
-    #parchment-wrap {
-        position: relative;
-        width: 360px;
-        height: 460px;
-        flex-shrink: 0; /* 防止被擠壓 */
+    /* 牛皮紙樣式 */
+    #parchment{
+        position:absolute; inset:0; background: linear-gradient(135deg, #e8d8a0 0%, #f4eacb 30%, #ecdcb4 60%, #e2d4a8 100%);
+        border-radius:3px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
-
-    /* 以下保留您的原始視覺樣式 */
-    #parchment { position: absolute; inset: 0; background: linear-gradient(135deg, #e8d8a0 0%, #f4eacb 30%, #ecdcb4 60%, #e2d4a8 100%); border-radius: 3px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-    #parchment-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 44px 36px; z-index: 2; }
-    
-    #re-title { font-size: 13px; letter-spacing: 0.22em; color: #8a6a1a; margin-bottom: 3px; }
-    #re-sub { font-size: 10px; letter-spacing: 0.24em; color: #a07830; margin-bottom: 20px; }
-    .divider { width: 200px; height: 1px; background: linear-gradient(90deg,transparent,#c8a84a,transparent); margin: 20px 0; }
-    
-    #three-jing { display: flex; gap: 20px; }
-    .jing-item { text-align: center; }
-    .jing-zh { font-size: 22px; color: #7a5810; }
-    .jing-en { font-size: 9px; color: #a07830; margin-top: 5px; display: block; }
-    
-    #voice-line { font-size: 17px; color: #5a3e0a; font-style: italic; }
-    #voice-sub { font-size: 9px; color: #9a7830; margin-top: 8px; }
-
-    /* 修復後的選單區塊，改為相對定位，使其跟隨在主內容下方 */
-    #menu {
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        width: 100%;
-        max-width: 360px;
+    #parchment-content{
+        position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+        padding:44px 36px; z-index:2; pointer-events:none;
     }
-    .menu-btn {
-        width: 100%;
-        padding: 14px 20px;
-        border: 1px solid #7a6030;
-        color: #c8a84a;
-        text-decoration: none;
-        text-align: center;
-        display: block;
+    #re-title{ font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.22em; color:#8a6a1a; }
+    #re-sub{ font-size:10px; letter-spacing:0.24em; color:#a07830; margin-bottom:20px; }
+    .divider{ width:200px; height:1px; background:linear-gradient(90deg,transparent,#c8a84a,transparent); margin:20px 0; }
+    .jing-zh{ font-size:22px; color:#7a5810; }
+    .jing-en{ font-size:9px; color:#a07830; display:block; margin-top:5px; }
+
+    /* 互動槽與盾牌 */
+    #slot-area{ position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:3; cursor:pointer; }
+    #snap-shield{ position:absolute; bottom:40px; left:50%; transform:translateX(-50%); display:none; z-index:4; pointer-events:none; }
+
+    /* 選單區 (預設隱藏) */
+    #menu{ 
+        display:none; flex-direction:column; align-items:center; gap:20px;
+        position:absolute; z-index:10; width:100%;
+    }
+    .menu-btn{ 
+        width:280px; padding:15px; border:1px solid #c8a84a; color:#c8a84a; 
+        text-decoration:none; text-align:center; font-size:14px; background:transparent;
     }
 </style>
 </head>
@@ -74,22 +56,51 @@
             <div id="re-title">REMARCABLE ENGLISH</div>
             <div id="re-sub">馬克精緻語言訓練</div>
             <div class="divider"></div>
-            <div id="three-jing">
-                <div class="jing-item"><span class="jing-zh">精緻</span><span class="jing-en">refined</span></div>
-                <div class="jing-item"><span class="jing-zh">精準</span><span class="jing-en">precise</span></div>
-                <div class="jing-item"><span class="jing-zh">精通</span><span class="jing-en">mastery</span></div>
+            <div style="display:flex; gap:20px;">
+                <div style="text-align:center;"><span class="jing-zh">精緻</span><span class="jing-en">refined</span></div>
+                <div style="text-align:center;"><span class="jing-zh">精準</span><span class="jing-en">precise</span></div>
+                <div style="text-align:center;"><span class="jing-zh">精通</span><span class="jing-en">mastery</span></div>
             </div>
             <div class="divider"></div>
-            <div id="voice-line">make your voice heard</div>
-            <div id="voice-sub">clearly · naturally · yours</div>
+            <div style="font-size:17px; color:#5a3e0a; font-style:italic;">make your voice heard</div>
         </div>
-    </div>
 
-    <div id="menu">
-        <a class="menu-btn" href="./GSATvocab3-4/">學測寫作高分搭配詞</a>
-        <a class="menu-btn" href="./about.html">關於 Marc</a>
+        <div id="slot-area" onclick="doSnap()">
+            <svg width="80" height="90" viewBox="0 0 80 90">
+                <path d="M40 2 L78 16 L78 44 Q78 70 40 88 Q2 70 2 44 L2 16 Z" fill="rgba(200,168,74,0.07)" stroke="#c8a84a" stroke-width="2"/>
+                <text x="40" y="50" font-family="Georgia" font-size="8" fill="#c8a84a" text-anchor="middle">place shield</text>
+            </svg>
+        </div>
+        
+        <div id="snap-shield">
+            <svg width="80" height="90" viewBox="0 0 80 90">
+                <path d="M40 4 L74 16 L74 44 Q74 64 56 74 Q48 79 40 82 Q32 79 24 74 Q6 64 6 44 L6 16 Z" fill="#00260D" stroke="#D1B06B" stroke-width="2.5"/>
+                <text x="40" y="56" font-family="Georgia" font-size="30" font-weight="bold" fill="#D1B06B" text-anchor="middle">M</text>
+            </svg>
+        </div>
     </div>
 </div>
 
+<div id="menu">
+    <a class="menu-btn" href="./GSATvocab3-4/">學測寫作高分搭配詞</a>
+    <a class="menu-btn" href="./about.html">關於 Marc</a>
+</div>
+
+<script>
+function doSnap() {
+    // 1. 顯示盾牌鑲嵌動畫
+    document.getElementById('slot-area').style.display = 'none';
+    document.getElementById('snap-shield').style.display = 'block';
+    
+    // 2. 延遲淡出主畫面，顯示選單
+    setTimeout(() => {
+        document.getElementById('stage').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('stage').style.display = 'none';
+            document.getElementById('menu').style.display = 'flex';
+        }, 900);
+    }, 500);
+}
+</script>
 </body>
 </html>
