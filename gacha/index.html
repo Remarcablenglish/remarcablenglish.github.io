@@ -261,6 +261,42 @@ header{
   font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;color:var(--muted);
 }
 
+/* ── 圖鑑 籤藏不露 ── */
+.dex-link{
+  margin:12px 20px 0;padding:9px 0;text-align:center;cursor:pointer;
+  border:1.5px solid var(--gold);border-radius:24px;
+  font-family:'Noto Serif TC',serif;font-weight:600;font-size:14px;
+  color:var(--deep);letter-spacing:.15em;background:rgba(209,176,107,.08);
+  -webkit-tap-highlight-color:transparent;transition:background .15s;
+}
+.dex-link:active{background:rgba(209,176,107,.22);}
+.dex-link span{color:#b8922a;font-size:12px;letter-spacing:.05em;}
+#dexWrap{display:none;padding:18px 16px 8px;}
+.dex-head{font-family:'Noto Serif TC',serif;font-weight:900;font-size:22px;letter-spacing:.25em;color:var(--deep);text-align:center;}
+.dex-sub{text-align:center;font-size:12px;color:var(--muted);letter-spacing:.2em;margin-top:2px;}
+.dex-title-badge{
+  margin:12px auto 4px;width:fit-content;padding:6px 22px;border-radius:20px;
+  background:var(--deep);color:var(--gold-hi);font-family:'Noto Serif TC',serif;
+  font-size:14px;letter-spacing:.12em;
+}
+.dex-prog{margin:10px 6px 0;font-size:12px;color:var(--muted);}
+.dex-bar{height:8px;background:#eee5d2;border-radius:4px;margin-top:3px;overflow:hidden;}
+.dex-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-hi));border-radius:4px;transition:width .4s;}
+.dex-sec{margin:18px 2px 8px;font-family:'Noto Serif TC',serif;font-weight:600;font-size:13px;color:var(--deep);letter-spacing:.1em;border-left:3px solid var(--gold);padding-left:8px;}
+.dex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+.dex-card{background:#fff;border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:8px 10px;}
+.dex-card .dc-top{display:flex;justify-content:space-between;font-size:10px;}
+.dex-card .dc-id{color:var(--muted);letter-spacing:.05em;}
+.dex-card .dc-st{color:#b8922a;letter-spacing:1px;}
+.dex-card .dc-en{font-size:12.5px;font-weight:700;color:var(--ink);margin-top:4px;line-height:1.4;}
+.dex-card .dc-zh{font-size:11px;color:var(--muted);margin-top:2px;}
+.dex-card.locked{background:#efece4;border-style:dashed;opacity:.75;}
+.dex-card.locked .dc-en{color:#b9b2a2;letter-spacing:.3em;}
+.dex-rule{
+  margin:26px 4px 6px;padding:14px;border:1.5px dashed var(--gold);border-radius:12px;
+  font-size:12px;color:var(--muted);text-align:center;line-height:1.9;
+}
+
 .toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
   background:var(--ink);color:#fff;padding:8px 18px;border-radius:20px;
@@ -298,6 +334,8 @@ header{
   <div class="tab" data-g="narrate">記敘筒</div>
 </div>
 
+<div class="dex-link" id="dexLink" onclick="toggleDex()">📖 籤藏不露 · 圖鑑　<span id="dexCount"></span></div>
+
 <div class="stage">
   <div class="tube-wrap" id="tubeWrap" onclick="shake()">
     <div class="tube-sticks">
@@ -324,6 +362,8 @@ header{
 <div class="notice" id="notice"></div>
 
 <div class="results" id="results"></div>
+
+<div id="dexWrap"></div>
 
 <div class="foot">
   <div class="foot-line">籤筒解決一句話。<br>整篇文章的事，<em>找 Marc</em>。</div>
@@ -535,6 +575,153 @@ narrate:[
 ]
 };
 
+/* ═══ 批次一擴充 a58–a82（25 支）═══ */
+POOL.argue.push(
+{t:'表態',s:1,b:'I think maybe most people will agree.',e:'It is safe to assume that…',z:'可以合理假設…',ex:'It is safe to assume that most teenagers have felt this pressure.'},
+{t:'表態',s:3,b:'Grades are not the only way to judge a student.',e:'…should not be the sole measure of…',z:'…不應是衡量…的唯一標準',ex:'Test scores should not be the sole measure of a student\u2019s worth.'},
+{t:'表態',s:3,b:'Everyone has the right to say their ideas.',e:'Everyone is entitled to…',z:'每個人都有權…',ex:'Everyone is entitled to a voice in decisions that shape their future.'},
+{t:'表態',s:2,b:'This idea is the same as the research.',e:'…is consistent with…',z:'…與…一致',ex:'This finding is consistent with what teachers have long observed.'},
+{t:'讓步',s:2,b:'But on the other hand,…',e:'Conversely, …',z:'反之，…',ex:'Hard work builds skill; conversely, burnout quietly destroys it.'},
+{t:'讓步',s:2,b:'People always say video games are bad, but…',e:'…is often portrayed as…, yet…',z:'…常被描繪成…，然而…',ex:'Gaming is often portrayed as a waste of time, yet it trains real decision-making.'},
+{t:'讓步',s:3,b:'We can not imagine a life without phones.',e:'It is difficult to conceive of…',z:'難以想像…',ex:'It is difficult to conceive of modern life without the internet.'},
+{t:'讓步',s:1,b:'We should also praise them for the good things.',e:'Give credit where credit is due: …',z:'該肯定的仍須肯定：…',ex:'Critics aside, give credit where credit is due: the policy did reduce waste.'},
+{t:'因果',s:1,b:'It made many people angry.',e:'…stirred up controversy',z:'…掀起爭議',ex:'The sudden rule change stirred up controversy overnight.'},
+{t:'因果',s:2,b:'AI is changing education a lot.',e:'…is reshaping the landscape of…',z:'…正在重塑…的版圖',ex:'AI is reshaping the landscape of education.'},
+{t:'凸顯',s:3,b:'Using phones in class is very common now.',e:'…has become the norm',z:'…已成為常態',ex:'Checking messages every few minutes has become the norm.'},
+{t:'凸顯',s:3,b:'Teenagers easily have this problem.',e:'…are especially prone to…',z:'…特別容易…',ex:'Sleep-deprived students are especially prone to careless mistakes.'},
+{t:'凸顯',s:3,b:'A research says that…',e:'A recent study conducted by… reveals…',z:'由…進行的最新研究顯示…',ex:'A recent study conducted by NTU researchers reveals a sharp rise in screen time.'},
+{t:'凸顯',s:1,b:'A new time is coming.',e:'This marks the dawn of a new era.',z:'這標誌著新時代的開端',ex:'The rise of AI marks the dawn of a new era in learning.'},
+{t:'問題',s:2,b:'Their friends make them do bad things.',e:'under the weight of peer pressure',z:'在同儕壓力的重壓下',ex:'Many teenagers make choices under the weight of peer pressure.'},
+{t:'問題',s:1,b:'They maybe will have a danger of failing.',e:'…run the risk of…',z:'…冒著…的風險',ex:'Students who cram overnight run the risk of blanking out in the exam.'},
+{t:'問題',s:2,b:'The system has many problems.',e:'…exposed deep cracks in the system',z:'…暴露了體制中的深層裂縫',ex:'The scandal exposed deep cracks in the system.'},
+{t:'問題',s:2,b:'He says it is other people\u2019s fault.',e:'…simply shifts the blame onto…',z:'…只是把責任轉嫁給…',ex:'Blaming "lazy students" simply shifts the blame onto the victims.'},
+{t:'問題',s:2,b:'They are the poor people in the society.',e:'those who live on the margins of society',z:'生活在社會邊緣的人們',ex:'Policies often overlook those who live on the margins of society.'},
+{t:'解方',s:2,b:'The government should stop it strongly.',e:'crack down on…',z:'嚴厲打擊…',ex:'Authorities must crack down on fake advertising targeting teens.'},
+{t:'解方',s:2,b:'We need to stop this bad trend.',e:'stem the tide of…',z:'遏止…的浪潮',ex:'Education is our best hope to stem the tide of misinformation.'},
+{t:'解方',s:2,b:'The government should let everyone can use the internet.',e:'guarantee equal access to…',z:'保障…的平等取得權',ex:'A just society guarantees equal access to quality education.'},
+{t:'解方',s:1,b:'Traveling can let us see more things.',e:'…broadens our vision',z:'…拓展我們的視野',ex:'Reading widely broadens our vision far beyond the classroom.'},
+{t:'解方',s:1,b:'This activity makes people become close.',e:'…binds people together',z:'…將人們凝聚在一起',ex:'Shared struggle binds people together more tightly than shared success.'},
+{t:'收束',s:1,b:'In the whole life, people need to learn.',e:'From cradle to grave, …',z:'從搖籃到墳墓，…',ex:'From cradle to grave, learning never truly ends.'}
+);
+
+/* ═══ 批次二擴充 a83–a90（8 支，真實醜小鴨）═══ */
+POOL.argue.push(
+{t:'讓步',s:2,b:'My grandparents had an opposite opinion.',e:'…held an entirely opposite stance',z:'…抱持截然相反的立場',ex:'My grandparents held an entirely opposite stance on taking days off.'},
+{t:'表態',s:2,b:'I regard the point 3 worths listening.',e:'…is highly worth + Ving',z:'…非常值得…',ex:'This advice is highly worth taking to heart.'},
+{t:'因果',s:2,b:'The conflict would explode.',e:'…frequently triggered intense arguments',z:'…屢屢引爆激烈爭執',ex:'My absences frequently triggered intense arguments at home.'},
+{t:'表態',s:3,b:'I looked for documents on the internet to support my perspective.',e:'gather research to substantiate one\u2019s perspective',z:'蒐集研究以佐證自身觀點',ex:'I gathered research to substantiate my perspective before the debate.'},
+{t:'解方',s:3,b:'They helped me address the conflict.',e:'…helped mediate the conflict',z:'…協助調停這場衝突',ex:'My parents helped mediate the conflict between two generations.'},
+{t:'解方',s:3,b:'They agreed not to bother my decision.',e:'agreed to respect my autonomy',z:'同意尊重我的自主權',ex:'In the end, my grandparents agreed to respect my autonomy.'},
+{t:'收束',s:2,b:'Make an effort without giving up, and the success will be closer.',e:'Persevere to the end, and success will be within reach.',z:'堅持到底，成功便觸手可及',ex:'Persevere to the end, and success will be within reach.'},
+{t:'解方',s:2,b:'I had to take action to remove the gap between us.',e:'bridge the generational divide',z:'弭平世代鴻溝',ex:'Honest conversation is the first step to bridge the generational divide.'}
+);
+
+/* ═══ 批次一+二擴充 n32–n63（32 支）═══ */
+POOL.narrate.push(
+{t:'心境',s:2,b:'When I just think about it, I feel very scared.',e:'The mere thought of… made me…',z:'光是想到…就讓我…',ex:'The mere thought of the stage made my hands tremble.'},
+{t:'心境',s:2,b:'I really really wanted to run away.',e:'I felt a sudden urge to…',z:'一股衝動湧上，想要…',ex:'I felt a sudden urge to turn back.'},
+{t:'心境',s:2,b:'I felt very sorry in my heart.',e:'My guilty conscience gnawed at me.',z:'愧疚啃噬著我的心',ex:'All week, my guilty conscience gnawed at me.'},
+{t:'心境',s:3,b:'I clearly knew that everyone was looking at me.',e:'I was acutely aware that…',z:'我敏銳地意識到…',ex:'I was acutely aware that every eye in the room was on me.'},
+{t:'心境',s:2,b:'I still had a little hope.',e:'a spark of hope',z:'一絲希望的火花',ex:'Deep down, a spark of hope refused to die.'},
+{t:'心境',s:1,b:'I finally felt so relaxed.',e:'I was flooded with relief.',z:'如釋重負的感覺將我淹沒',ex:'When the results came out, I was flooded with relief.'},
+{t:'轉折',s:2,b:'I met him by accident on the street.',e:'A chance encounter…',z:'一場不期而遇…',ex:'A chance encounter on the bus changed the course of my summer.'},
+{t:'轉折',s:1,b:'I quickly decided to do it.',e:'I made a snap decision.',z:'我當機立斷',ex:'With seconds left, I made a snap decision.'},
+{t:'轉折',s:1,b:'I finally had the chance.',e:'…was finally within my grasp',z:'…終於觸手可及',ex:'After two failures, the prize was finally within my grasp.'},
+{t:'轉折',s:2,b:'I decided that I must work harder.',e:'That night, I resolved to…',z:'那一夜，我下定決心…',ex:'That night, I resolved to never let fear decide for me.'},
+{t:'轉折',s:2,b:'I tried everything but nothing worked.',e:'Having exhausted all options, …',z:'用盡所有辦法之後，…',ex:'Having exhausted all options, I finally asked for help.'},
+{t:'轉折',s:3,b:'I did it first by myself.',e:'For once, I took the initiative.',z:'這一次，我主動出擊',ex:'For once, I took the initiative and spoke first.'},
+{t:'轉折',s:1,b:'I tried the things I was not used to.',e:'I stepped out of my comfort zone.',z:'我踏出了舒適圈',ex:'That summer, I finally stepped out of my comfort zone.'},
+{t:'氛圍',s:2,b:'She was very focused on her book.',e:'absorbed in…',z:'沉浸於…',ex:'She sat by the window, absorbed in her book.'},
+{t:'氛圍',s:1,b:'I grew up beside my excellent brother.',e:'I grew up in the shadow of…',z:'我在…的陰影下長大',ex:'I grew up in the shadow of a brilliant older brother.'},
+{t:'氛圍',s:1,b:'Everyone was surprised and started to talk.',e:'…caused a stir in the room',z:'…在室內掀起一陣騷動',ex:'My answer caused a stir in the quiet classroom.'},
+{t:'收尾',s:1,b:'I still felt bad about it after.',e:'…left a bitter taste.',z:'…留下了一絲苦澀',ex:'We won, but the way we won left a bitter taste.'},
+{t:'收尾',s:2,b:'I had no choice, so I just accepted it.',e:'I was resigned to the fact that…',z:'我認命地接受了…的事實',ex:'I was resigned to the fact that some goodbyes come early.'},
+{t:'情緒特寫',s:3,b:'Unfortunately, …',e:'To my profound dismay, …',z:'令我深感沮喪的是…',ex:'To my profound dismay, my computer crashed the night before the deadline.'},
+{t:'情緒特寫',s:3,b:'Surprisingly, …',e:'To my utter astonishment, …',z:'令我完全震驚的是…',ex:'To my utter astonishment, my teammate had saved a backup online.'},
+{t:'情緒特寫',s:3,b:'Luckily, …',e:'To my immense relief, …',z:'令我大大鬆了一口氣的是…',ex:'To my immense relief, we finished the presentation on time.'},
+{t:'情緒特寫',s:3,b:'I felt so upset about it.',e:'Much to my chagrin, …',z:'令我懊惱萬分的是…',ex:'Much to my chagrin, I had studied the wrong chapter entirely.'},
+{t:'情緒特寫',s:2,b:'Luckily, at that time…',e:'As luck would have it, …',z:'碰巧，幸運之神眷顧…',ex:'As luck would have it, the last bus was five minutes late.'},
+{t:'情緒特寫',s:3,b:'I couldn\u2019t believe it.',e:'To my absolute disbelief, …',z:'令我完全不敢置信的是…',ex:'To my absolute disbelief, my name was at the top of the list.'},
+{t:'情緒特寫',s:2,b:'I was very happy that…',e:'Much to my delight, …',z:'令我欣喜的是…',ex:'Much to my delight, the teacher chose my design.'},
+{t:'心境',s:2,b:'The conflict would force me to escape from hell.',e:'…created a suffocating atmosphere',z:'…營造出令人窒息的氛圍',ex:'Every argument created a suffocating atmosphere at home.'},
+{t:'心境',s:2,b:'I struggled for being torn between them.',e:'torn between… and…',z:'在…與…之間左右為難',ex:'I was torn between pleasing my family and protecting my own time.'},
+{t:'心境',s:2,b:'The dramatically change make it tired and hard for me.',e:'…left me exhausted and frustrated',z:'…讓我筋疲力竭、滿心挫折',ex:'The sudden change left me exhausted and frustrated.'},
+{t:'心境',s:2,b:'It swiftly lower my social battery.',e:'…drains my social battery',z:'…榨乾我的社交電量',ex:'Family banquets drain my social battery within an hour.'},
+{t:'轉折',s:2,b:'Due to the problems, I realized I had to take action.',e:'Determined to…, I…',z:'下定決心要…，我…',ex:'Determined to bridge the divide, I turned to my parents for help.'},
+{t:'收尾',s:1,b:'My classmates and I couldn\u2019t help laughing for a while.',e:'…couldn\u2019t help but burst into laughter',z:'…忍不住放聲大笑',ex:'Watching the scene, we couldn\u2019t help but burst into laughter.'},
+{t:'收尾',s:1,b:'It becomes the valuable memory.',e:'…has become a cherished memory',z:'…已成為一段珍藏的回憶',ex:'What embarrassed me then has become a cherished memory now.'}
+);
+
+/* ═══ 圖鑑「籤藏不露」— 編號即真相 ═══ */
+POOL.argue.forEach((x,i)=>x.id='a'+String(i+1).padStart(2,'0'));
+POOL.narrate.forEach((x,i)=>x.id='n'+String(i+1).padStart(2,'0'));
+const TOTAL=POOL.argue.length+POOL.narrate.length;
+
+function unlockedIds(){try{return JSON.parse(store.getItem('dex_unlocked')||'[]');}catch(e){return[];}}
+function recordUnlocks(items){
+  const u=new Set(unlockedIds());
+  items.forEach(x=>u.add(x.id));
+  store.setItem('dex_unlocked',JSON.stringify([...u]));
+  updateDexCount();
+}
+function titleFor(n){
+  if(n>=TOTAL)return '🌟 文氣附體 · 閱卷教授的救贖';
+  if(n>=81)return '🦢 驚為天鵝';
+  if(n>=31)return '🐥 鴨力釋放';
+  return '🐣 嗷嗷待哺';
+}
+function updateDexCount(){
+  const el=document.getElementById('dexCount');
+  if(el)el.textContent=unlockedIds().length+'/'+TOTAL;
+}
+let dexOpen=false;
+function toggleDex(){
+  dexOpen=!dexOpen;
+  const set=(sel,show)=>{const el=document.querySelector(sel);if(el)el.style.display=show?'':'none';};
+  set('#tabs',!dexOpen);set('.stage',!dexOpen);set('.daily-row',!dexOpen);set('#results',!dexOpen);
+  document.getElementById('notice').classList.remove('show');
+  const w=document.getElementById('dexWrap');
+  const link=document.getElementById('dexLink');
+  if(dexOpen){
+    renderDex();w.style.display='block';
+    link.innerHTML='← 返回搖籤　<span id="dexCount"></span>';
+  }else{
+    w.style.display='none';
+    link.innerHTML='📖 籤藏不露 · 圖鑑　<span id="dexCount"></span>';
+  }
+  updateDexCount();
+}
+function dexProg(label,got,total){
+  const pct=Math.round(got/total*100);
+  return `<div class="dex-prog"><span>${label}　${got} / ${total}</span><div class="dex-bar"><div class="dex-bar-fill" style="width:${pct}%"></div></div></div>`;
+}
+function renderDex(){
+  const u=new Set(unlockedIds());
+  const got=g=>POOL[g].filter(x=>u.has(x.id)).length;
+  let h='<div class="dex-head">【籤藏不露】</div><div class="dex-sub">醜小鴨的羽化錄</div>';
+  h+=`<div class="dex-title-badge">${titleFor(u.size)}</div>`;
+  h+=dexProg('議論筒',got('argue'),POOL.argue.length);
+  h+=dexProg('記敘筒',got('narrate'),POOL.narrate.length);
+  [['argue','議論筒'],['narrate','記敘筒']].forEach(([g,label])=>{
+    const cats=[...new Set(POOL[g].map(x=>x.t))];
+    cats.forEach(c=>{
+      const items=POOL[g].filter(x=>x.t===c);
+      const gc=items.filter(x=>u.has(x.id)).length;
+      h+=`<div class="dex-sec">${label} · ${c}（${gc}/${items.length}）</div><div class="dex-grid">`;
+      items.forEach(x=>{
+        if(u.has(x.id)){
+          h+=`<div class="dex-card"><div class="dc-top"><span class="dc-id">${x.id}</span><span class="dc-st">${stars(x.s)}</span></div><div class="dc-en">${esc(x.e)}</div><div class="dc-zh">${esc(x.z)}</div></div>`;
+        }else{
+          h+=`<div class="dex-card locked"><div class="dc-top"><span class="dc-id">${x.id}</span><span class="dc-st">${stars(x.s)}</span></div><div class="dc-en">？？？</div><div class="dc-zh">尚未抽中</div></div>`;
+        }
+      });
+      h+='</div>';
+    });
+  });
+  h+='<div class="dex-rule">📜 藏句守則<br>本圖鑑進度仰賴天地靈氣（瀏覽器暫存）封存。<br>籤運如浮雲，清快取如失憶。<br>清除瀏覽器資料或更換設備，收集進度將化為烏有，一切重頭修煉。</div>';
+  document.getElementById('dexWrap').innerHTML=h;
+}
+
 /* ═══════════ 遊戲參數 ═══════════ */
 const DAILY_QUOTA = 5;
 const COOLDOWN_S  = 60;
@@ -651,6 +838,7 @@ function shake(){
 
   const n=DRAW_MIN+Math.floor(Math.random()*(DRAW_MAX-DRAW_MIN+1));
   lastDraw=drawFrom(POOL[genre],n);
+  recordUnlocks(lastDraw);
   setTimeout(()=>{
     document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,false)).join('');
     if(n===1)toast('籤筒今天心情普通，只肯給一支 🎋');
@@ -678,6 +866,7 @@ function dailyDraw(){
 
   const highPool=POOL[genre].filter(x=>x.s===3);
   lastDraw=drawFrom(highPool.length?highPool:POOL[genre],1);
+  recordUnlocks(lastDraw);
   setTimeout(()=>{
     document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,true)).join('');
     toast('🌟 金籤降臨');
@@ -748,6 +937,7 @@ function rattle(){
 resetIfNewDay();
 renderQuota();
 updateDailyBtn();
+updateDexCount();
 if(cooldownLeft()>0)startCooldownUI();
 </script>
 </body>
