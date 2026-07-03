@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>文氣籤筒｜Remarcable English</title>
+<title>寫作救星 一字籤金｜Remarcable English</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -278,15 +278,18 @@ header{
 <header>
   <div class="h-title">
     <div class="h-en">REMARCABLE ENGLISH</div>
-    <div class="h-zh">文氣籤筒</div>
-    <div class="h-sub">不知道怎麼寫，就搖一支</div>
+    <div class="h-zh">寫作救星</div>
+    <div class="h-sub">一字籤金 · 不知道怎麼寫，就搖一支</div>
   </div>
   <a class="h-back" href="../">← 回首頁</a>
 </header>
 
 <div class="quota-bar">
   <span>今日籤運</span>
-  <div class="quota-sticks" id="quotaSticks"></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="quota-sticks" id="quotaSticks"></div>
+    <button id="sndBtn" onclick="toggleSound(event)" style="background:none;border:1px solid rgba(209,176,107,.4);border-radius:8px;color:#c8b98a;font-size:12px;padding:2px 8px;cursor:pointer;">🔊</button>
+  </div>
 </div>
 
 <div class="tabs" id="tabs">
@@ -310,7 +313,7 @@ header{
       </div>
     </div>
   </div>
-  <div class="tube-hint">點籤筒 <strong>搖一次</strong>，出三支</div>
+  <div class="tube-hint">點籤筒 <strong>搖一次</strong>，出 1–3 支，看籤運</div>
 </div>
 
 <div class="daily-row">
@@ -534,7 +537,8 @@ narrate:[
 /* ═══════════ 遊戲參數 ═══════════ */
 const DAILY_QUOTA = 5;
 const COOLDOWN_S  = 60;
-const DRAW_COUNT  = 3;
+const DRAW_MIN = 1;   // 一搖最少出幾支
+const DRAW_MAX = 3;   // 一搖最多出幾支
 
 const store = (()=>{try{localStorage.setItem('_t','1');localStorage.removeItem('_t');return localStorage;}
  catch(e){const m={};return{getItem:k=>(k in m?m[k]:null),setItem:(k,v)=>{m[k]=String(v);},removeItem:k=>{delete m[k];}};}})();
@@ -637,15 +641,19 @@ function shake(){
   hideNotice();
   const wrap=document.getElementById('tubeWrap');
   wrap.classList.add('shaking');
+  rattle();
   setTimeout(()=>wrap.classList.remove('shaking'),850);
 
   store.setItem('qt_used',String(used()+1));
   store.setItem('qt_last',String(Date.now()));
   renderQuota();
 
-  lastDraw=drawFrom(POOL[genre],DRAW_COUNT);
+  const n=DRAW_MIN+Math.floor(Math.random()*(DRAW_MAX-DRAW_MIN+1));
+  lastDraw=drawFrom(POOL[genre],n);
   setTimeout(()=>{
     document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,false)).join('');
+    if(n===1)toast('籤筒今天心情普通，只肯給一支 🎋');
+    else if(n===3)toast('籤運大開！一次三支 ✨');
     if(used()>=DAILY_QUOTA){
       showNotice('這是今天最後一搖 🎋<br>覺得不夠用？<strong>整篇文章的事，找 Marc。</strong>');
     }else{
@@ -661,6 +669,7 @@ function dailyDraw(){
   hideNotice();
   const wrap=document.getElementById('tubeWrap');
   wrap.classList.add('shaking');
+  rattle();
   setTimeout(()=>wrap.classList.remove('shaking'),850);
 
   store.setItem('qt_gold','1');
@@ -701,6 +710,38 @@ document.getElementById('tabs').addEventListener('click',e=>{
   lastDraw=[];
   hideNotice();
 });
+
+/* ═══════════ 籤筒聲（Web Audio 即時合成木籤碰撞聲，免音檔）═══════════ */
+let audioCtx=null,soundOn=true;
+function toggleSound(ev){
+  ev.stopPropagation();
+  soundOn=!soundOn;
+  document.getElementById('sndBtn').textContent=soundOn?'🔊':'🔇';
+  toast(soundOn?'籤筒聲已開啟':'籤筒聲已關閉');
+}
+function rattle(){
+  if(!soundOn)return;
+  try{
+    audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    const now=audioCtx.currentTime;
+    const clicks=12+Math.floor(Math.random()*8);
+    for(let i=0;i<clicks;i++){
+      const t=now+Math.random()*0.8;
+      const dur=0.02+Math.random()*0.04;
+      const buf=audioCtx.createBuffer(1,Math.max(1,Math.floor(audioCtx.sampleRate*dur)),audioCtx.sampleRate);
+      const d=buf.getChannelData(0);
+      for(let j=0;j<d.length;j++){d[j]=(Math.random()*2-1)*Math.pow(1-j/d.length,2.5);}
+      const src=audioCtx.createBufferSource();src.buffer=buf;
+      const bp=audioCtx.createBiquadFilter();bp.type='bandpass';
+      bp.frequency.value=900+Math.random()*2200;bp.Q.value=7;
+      const g=audioCtx.createGain();
+      g.gain.setValueAtTime(0.18+Math.random()*0.22,t);
+      src.connect(bp);bp.connect(g);g.connect(audioCtx.destination);
+      src.start(t);
+    }
+  }catch(e){}
+}
 
 /* init */
 resetIfNewDay();
