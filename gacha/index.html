@@ -330,8 +330,9 @@ header{
 </div>
 
 <div class="tabs" id="tabs">
-  <div class="tab active" data-g="argue">議論筒</div>
-  <div class="tab" data-g="narrate">記敘筒</div>
+  <div class="tab active" data-g="argue">講道理</div>
+  <div class="tab" data-g="narrate">說故事</div>
+  <div class="tab" data-g="depict">學分鏡</div>
 </div>
 
 <div class="dex-link" id="dexLink" onclick="toggleDex()">📖 籤藏不露 · 圖鑑　<span id="dexCount"></span></div>
@@ -652,10 +653,39 @@ POOL.narrate.push(
 {t:'收尾',s:1,b:'It becomes the valuable memory.',e:'…has become a cherished memory',z:'…已成為一段珍藏的回憶',ex:'What embarrassed me then has become a cherished memory now.'}
 );
 
+/* ═══ UR 卡池第一批 a91–a102（115 學測佳作 · 閱卷級 s:4）═══ */
+POOL.argue.push(
+{t:'收束',s:4,b:'X has good points and bad points.',e:'X is a double-edged sword, offering A yet quietly undermining B.',z:'X 是雙面刃，帶來 A 卻悄悄侵蝕 B',ex:'Social media is a double-edged sword, offering connection yet quietly undermining attention.'},
+{t:'表態',s:4,b:'We should start to think about this problem now.',e:'It is high time (that) we + 過去式…',z:'是我們…的時候了',ex:'It is high time we figured out what lies behind this trend.'},
+{t:'凸顯',s:4,b:'In the past, X was A. But now X is B.',e:'Once perceived as A, X has gradually become B.',z:'曾被視為 A 的 X，已逐漸成為 B',ex:'Once perceived as a luxury, the smartphone has gradually become a necessity.'},
+{t:'表態',s:4,b:'I think X is a big problem for…',e:'X, I believe, is a major hindrance to…',z:'我認為，X 是…的一大阻礙',ex:'The fear of failure, I believe, is a major hindrance to real learning.'},
+{t:'讓步',s:4,b:'A is more important than B.',e:'The A of X simply outweighs the B.',z:'X 的 A 遠遠壓過了 B',ex:'For many, the risks of speaking up simply outweigh the rewards.'},
+{t:'讓步',s:4,b:'Although they look different, they are the same.',e:'In spite of the seemingly unrelated A, they all point to B.',z:'儘管 A 看似無關，它們全都指向 B',ex:'In spite of the seemingly unrelated symptoms, they all point to the same cause: sleep loss.'},
+{t:'收束',s:4,b:'X is good, but we should also be careful about Y.',e:'While enjoying X, we should not lose sight of Y.',z:'在享受 X 的同時，我們不該忽視 Y',ex:'While enjoying the convenience of AI, we should not lose sight of our own judgment.'},
+{t:'收束',s:4,b:'In conclusion, this is very important.',e:'In a nutshell, it is crucial that + S + 原形 V…',z:'簡而言之，…至關重要',ex:'In a nutshell, it is crucial that every learner be aware of this blind spot.'},
+{t:'解方',s:4,b:'We must do it quickly.',e:'It is imperative to V before…',z:'在…之前，必須…',ex:'It is imperative to build the habit before motivation fades.'},
+{t:'因果',s:4,b:'People care about A, not B, so C happens.',e:'X are now more focused on A instead of B, leading to C.',z:'人們如今更專注於 A 而非 B，進而導致 C',ex:'Students are now more focused on shortcuts instead of foundations, leading to fragile skills.'},
+{t:'舉例',s:4,b:'For example, me. I have this problem too.',e:'For example, I am…, meaning that by the time…, X will be mounted on my shoulders.',z:'以我自身為例…屆時 X 將落在我肩上',ex:'For example, I am an only child, meaning that by the time I graduate, two generations\u2019 needs will be mounted on my shoulders.'},
+{t:'問題',s:4,b:'This will be bad for X in the future.',e:'This could in the long run place more pressure on…',z:'長遠來看，這將對…造成更大壓力',ex:'Skipping sleep could in the long run place more pressure on both memory and mood.'}
+);
+
+/* ═══ 學分鏡筒（看圖寫作 · 創始 8 支 · 全 UR）═══ */
+POOL.depict=[
+{t:'定調',s:4,b:'Nowadays, more and more people think differently about X.',e:'As society ushers in a new era, people\u2019s perception of X has shifted from A to B.',z:'隨著社會邁入新時代，人們對 X 的認知已從 A 轉向 B',ex:'As society ushers in the AI era, people\u2019s perception of learning has shifted from memorizing to questioning.'},
+{t:'定調',s:4,b:'X is very popular now. Many people do it.',e:'X has become unprecedentedly popular, with more and more Y choosing to…',z:'X 空前風行，越來越多 Y 選擇…',ex:'Short-form video has become unprecedentedly popular, with more and more teenagers choosing it over reading.'},
+{t:'運鏡',s:4,b:'The picture shows two different things.',e:'The picture illustrates a striking juxtaposition between A and B.',z:'這張圖呈現了 A 與 B 的鮮明並置',ex:'The picture illustrates a striking juxtaposition between screen time and family time.'},
+{t:'運鏡',s:4,b:'In the left picture, we can see many people.',e:'As illustrated in the left picture, it is commonplace to see…',z:'如左圖所示，…的景象隨處可見',ex:'As illustrated in the left picture, it is commonplace to see commuters glued to their phones.'},
+{t:'運鏡',s:4,b:'The left picture is A. The right picture is B.',e:'While the left picture showcases A, the right one offers a glance at B.',z:'左圖展示了 A，右圖則讓我們一窺 B',ex:'While the left picture showcases the crowded park, the right one offers a glance at life at home.'},
+{t:'寓意',s:4,b:'This picture means that…',e:'The scenario conveys a hidden message that…',z:'這個場景傳達了一個隱藏的訊息：…',ex:'The scenario conveys a hidden message that convenience quietly reshapes our habits.'},
+{t:'寓意',s:4,b:'The second picture compares A and B.',e:'The second picture, drawing a comparison between A and B, clearly illustrates that…',z:'第二張圖藉由 A 與 B 的對比，清楚呈現出…',ex:'The second picture, drawing a comparison between two families, clearly illustrates that lifestyles are diverging.'},
+{t:'寓意',s:4,b:'X shows A and also B.',e:'X not only illustrates A but implies B.',z:'X 不僅呈現了 A，更暗示了 B',ex:'The empty playgrounds not only illustrate the low birth rate but imply a lonelier future.'}
+];
+
 /* ═══ 圖鑑「籤藏不露」— 編號即真相 ═══ */
 POOL.argue.forEach((x,i)=>x.id='a'+String(i+1).padStart(2,'0'));
 POOL.narrate.forEach((x,i)=>x.id='n'+String(i+1).padStart(2,'0'));
-const TOTAL=POOL.argue.length+POOL.narrate.length;
+POOL.depict.forEach((x,i)=>x.id='d'+String(i+1).padStart(2,'0'));
+const TOTAL=POOL.argue.length+POOL.narrate.length+POOL.depict.length;
 
 function unlockedIds(){try{return JSON.parse(store.getItem('dex_unlocked')||'[]');}catch(e){return[];}}
 function recordUnlocks(items){
@@ -700,9 +730,10 @@ function renderDex(){
   const got=g=>POOL[g].filter(x=>u.has(x.id)).length;
   let h='<div class="dex-head">【籤藏不露】</div><div class="dex-sub">醜小鴨的羽化錄</div>';
   h+=`<div class="dex-title-badge">${titleFor(u.size)}</div>`;
-  h+=dexProg('議論筒',got('argue'),POOL.argue.length);
-  h+=dexProg('記敘筒',got('narrate'),POOL.narrate.length);
-  [['argue','議論筒'],['narrate','記敘筒']].forEach(([g,label])=>{
+  h+=dexProg('講道理',got('argue'),POOL.argue.length);
+  h+=dexProg('說故事',got('narrate'),POOL.narrate.length);
+  h+=dexProg('學分鏡',got('depict'),POOL.depict.length);
+  [['argue','講道理'],['narrate','說故事'],['depict','學分鏡']].forEach(([g,label])=>{
     const cats=[...new Set(POOL[g].map(x=>x.t))];
     cats.forEach(c=>{
       const items=POOL[g].filter(x=>x.t===c);
@@ -770,7 +801,7 @@ function toast(msg){
   t.textContent=msg;t.classList.add('show');
   clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);
 }
-function stars(n){return '★★★'.slice(0,n);}
+function stars(n){return n>=4?'UR ✦':'★★★'.slice(0,n);}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
 let lastDraw=[];
@@ -864,7 +895,7 @@ function dailyDraw(){
   store.setItem('qt_gold','1');
   updateDailyBtn();
 
-  const highPool=POOL[genre].filter(x=>x.s===3);
+  const highPool=POOL[genre].filter(x=>x.s>=3);
   lastDraw=drawFrom(highPool.length?highPool:POOL[genre],1);
   recordUnlocks(lastDraw);
   setTimeout(()=>{
