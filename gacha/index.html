@@ -130,6 +130,31 @@ header{
   60%{transform:rotate(4deg);}
   75%{transform:rotate(-2deg);}
 }
+@keyframes idleBob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-4px);}
+}
+.tube-wrap:not(.shaking):not(.cooling){animation:idleBob 2.6s ease-in-out infinite;}
+.guide-finger{
+  position:absolute;top:38%;left:50%;transform:translateX(-50%);
+  z-index:8;pointer-events:none;text-align:center;
+}
+.guide-finger .gf-hand{
+  font-size:34px;display:block;
+  animation:tapBounce 1.1s ease-in-out infinite;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));
+}
+.guide-finger .gf-txt{
+  display:inline-block;margin-top:2px;
+  background:var(--deep);color:var(--gold-hi);
+  font-size:12px;letter-spacing:.15em;padding:4px 12px;border-radius:14px;
+  font-family:'Noto Serif TC',serif;font-weight:600;
+  box-shadow:0 3px 8px rgba(0,38,13,.3);white-space:nowrap;
+}
+@keyframes tapBounce{
+  0%,100%{transform:translateY(0) rotate(-12deg);}
+  50%{transform:translateY(12px) rotate(-12deg);}
+}
 .tube-wrap.shaking .tube{animation:shake .8s ease-in-out;}
 .tube-wrap.shaking .tube-sticks{animation:shake .8s ease-in-out reverse;}
 
@@ -146,15 +171,14 @@ header{
 /* ── daily golden draw ── */
 .daily-row{padding:6px 20px 0;display:flex;justify-content:center;}
 .daily-btn{
-  border:none;cursor:pointer;
-  background:linear-gradient(135deg,#b8922a,var(--gold) 40%,var(--gold-hi) 55%,var(--gold) 70%,#b8922a);
-  color:var(--deep);font-weight:700;font-size:13px;letter-spacing:.18em;
-  padding:10px 26px;border-radius:24px;
-  box-shadow:0 4px 14px rgba(184,146,42,.4);
+  border:1.5px solid var(--gold);cursor:pointer;
+  background:rgba(209,176,107,.08);
+  color:#8a6a2e;font-weight:600;font-size:12.5px;letter-spacing:.15em;
+  padding:8px 22px;border-radius:24px;
   font-family:'Noto Serif TC',serif;
-  transition:transform .15s, opacity .3s;
+  transition:transform .15s, opacity .3s, background .15s;
 }
-.daily-btn:active{transform:scale(.96);}
+.daily-btn:active{transform:scale(.96);background:rgba(209,176,107,.22);}
 .daily-btn:disabled{opacity:.35;cursor:default;box-shadow:none;}
 
 /* ── results ── */
@@ -188,7 +212,7 @@ header{
   margin-bottom:4px;font-family:'Noto Serif TC',serif;
 }
 
-/* 醜小鴨 → 天鵝 */
+/* 小鴨鴨 → 天鵝 */
 .sc-before{
   margin-top:9px;
   display:flex;align-items:baseline;gap:7px;
@@ -322,9 +346,9 @@ header{
 </header>
 
 <div class="quota-bar">
-  <span>今日籤運</span>
+  <span>寫作救星 · 每日籤運</span>
   <div style="display:flex;align-items:center;gap:12px;">
-    <div class="quota-sticks" id="quotaSticks"></div>
+    <span id="quotaText" style="color:#f0dca8;font-size:13px;letter-spacing:.08em;font-weight:600;">今日籤數：5 / 5</span>
     <button id="sndBtn" onclick="toggleSound(event)" style="background:none;border:1px solid rgba(209,176,107,.4);border-radius:8px;color:#c8b98a;font-size:12px;padding:2px 8px;cursor:pointer;">🔊</button>
   </div>
 </div>
@@ -339,6 +363,10 @@ header{
 
 <div class="stage">
   <div class="tube-wrap" id="tubeWrap" onclick="shake()">
+    <div class="guide-finger" id="guideFinger" style="display:none;">
+      <span class="gf-hand">👆</span>
+      <span class="gf-txt">點我搖籤</span>
+    </div>
     <div class="tube-sticks">
       <div class="t-stick ts1"></div><div class="t-stick ts2"></div><div class="t-stick ts3"></div><div class="t-stick ts4"></div><div class="t-stick ts5"></div>
     </div>
@@ -354,10 +382,6 @@ header{
     </div>
   </div>
   <div class="tube-hint">點籤筒 <strong>搖一次</strong>，出 1–3 支，看籤運</div>
-</div>
-
-<div class="daily-row">
-  <button class="daily-btn" id="dailyBtn" onclick="dailyDraw()">🌟 每日一搖 · 金籤保底 ★★★</button>
 </div>
 
 <div class="notice" id="notice"></div>
@@ -380,7 +404,7 @@ header{
 
 <script>
 /* ═══════════ 籤庫 ═══════════
-   b = 醜小鴨（學生常寫的版本） e = 天鵝（升級版） z = 中文
+   b = 小鴨鴨（學生常寫的版本） e = 天鵝（升級版） z = 中文
    ex = 簡易例句  s = 強度 1★(L3) 2★★(L4) 3★★★(L5)              */
 const POOL = {
 argue:[
@@ -605,7 +629,7 @@ POOL.argue.push(
 {t:'收束',s:1,b:'In the whole life, people need to learn.',e:'From cradle to grave, …',z:'從搖籃到墳墓，…',ex:'From cradle to grave, learning never truly ends.'}
 );
 
-/* ═══ 批次二擴充 a83–a90（8 支，真實醜小鴨）═══ */
+/* ═══ 批次二擴充 a83–a90（8 支，真實小鴨鴨）═══ */
 POOL.argue.push(
 {t:'讓步',s:2,b:'My grandparents had an opposite opinion.',e:'…held an entirely opposite stance',z:'…抱持截然相反的立場',ex:'My grandparents held an entirely opposite stance on taking days off.'},
 {t:'表態',s:2,b:'I regard the point 3 worths listening.',e:'…is highly worth + Ving',z:'…非常值得…',ex:'This advice is highly worth taking to heart.'},
@@ -728,7 +752,7 @@ function dexProg(label,got,total){
 function renderDex(){
   const u=new Set(unlockedIds());
   const got=g=>POOL[g].filter(x=>u.has(x.id)).length;
-  let h='<div class="dex-head">【籤藏不露】</div><div class="dex-sub">醜小鴨的羽化錄</div>';
+  let h='<div class="dex-head">【籤藏不露】</div><div class="dex-sub">小鴨鴨的羽化錄</div>';
   h+=`<div class="dex-title-badge">${titleFor(u.size)}</div>`;
   h+=dexProg('講道理',got('argue'),POOL.argue.length);
   h+=dexProg('說故事',got('narrate'),POOL.narrate.length);
@@ -783,13 +807,11 @@ let genre='argue';
 
 /* ═══════════ UI ═══════════ */
 function renderQuota(){
-  const el=document.getElementById('quotaSticks');
-  el.innerHTML='';
-  for(let i=0;i<DAILY_QUOTA;i++){
-    const d=document.createElement('div');
-    d.className='q-dot'+(i<used()?' used':'');
-    el.appendChild(d);
-  }
+  const el=document.getElementById('quotaText');
+  if(!el)return;
+  const left=DAILY_QUOTA-used();
+  el.textContent=left>0?('今日籤數：'+left+' / '+DAILY_QUOTA):'今日已搖完，明日再來';
+  el.style.color=left>0?'#f0dca8':'#c8927a';
 }
 function showNotice(html){
   const n=document.getElementById('notice');
@@ -858,6 +880,11 @@ function shake(){
     return;
   }
   hideNotice();
+  if(store.getItem('guide_done')!=='1'){
+    store.setItem('guide_done','1');
+    const gf=document.getElementById('guideFinger');
+    if(gf)gf.style.display='none';
+  }
   const wrap=document.getElementById('tubeWrap');
   wrap.classList.add('shaking');
   rattle();
@@ -882,32 +909,6 @@ function shake(){
   },700);
 }
 
-/* ═══════════ 每日一搖 ═══════════ */
-function dailyDraw(){
-  resetIfNewDay();
-  if(goldUsed()){toast('今日金籤已抽過，明天再來 🌟');return;}
-  hideNotice();
-  const wrap=document.getElementById('tubeWrap');
-  wrap.classList.add('shaking');
-  rattle();
-  setTimeout(()=>wrap.classList.remove('shaking'),850);
-
-  store.setItem('qt_gold','1');
-  updateDailyBtn();
-
-  const highPool=POOL[genre].filter(x=>x.s>=3);
-  lastDraw=drawFrom(highPool.length?highPool:POOL[genre],1);
-  recordUnlocks(lastDraw);
-  setTimeout(()=>{
-    document.getElementById('results').innerHTML=lastDraw.map((p,i)=>stickHTML(p,i,true)).join('');
-    toast('🌟 金籤降臨');
-  },700);
-}
-function updateDailyBtn(){
-  const b=document.getElementById('dailyBtn');
-  if(goldUsed()){b.disabled=true;b.textContent='🌟 今日金籤已抽 · 明日再來';}
-  else{b.disabled=false;b.textContent='🌟 每日一搖 · 金籤保底 ★★★';}
-}
 
 /* ═══════════ 複製 ═══════════ */
 function copyStick(idx){
@@ -967,8 +968,10 @@ function rattle(){
 /* init */
 resetIfNewDay();
 renderQuota();
-updateDailyBtn();
 updateDexCount();
+if(store.getItem('guide_done')!=='1'){
+  document.getElementById('guideFinger').style.display='block';
+}
 if(cooldownLeft()>0)startCooldownUI();
 </script>
 </body>
