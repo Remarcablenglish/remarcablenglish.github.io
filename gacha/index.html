@@ -354,12 +354,12 @@ header{
 </div>
 
 <div class="tabs" id="tabs">
-  <div class="tab active" data-g="argue">講道理</div>
-  <div class="tab" data-g="narrate">說故事</div>
-  <div class="tab" data-g="depict">學分鏡</div>
+  <div class="tab active" data-g="argue">🧠 講道理</div>
+  <div class="tab" data-g="narrate">💬 說故事</div>
+  <div class="tab" data-g="depict">🎥 學分鏡</div>
 </div>
 
-<div class="dex-link" id="dexLink" onclick="toggleDex()">📖 籤藏不露 · 圖鑑　<span id="dexCount"></span></div>
+<div class="dex-link" id="dexLink" onclick="toggleDex()">📖 我已收集　<span id="dexCount"></span>　金句</div>
 
 <div class="stage">
   <div class="tube-wrap" id="tubeWrap" onclick="shake()">
@@ -742,7 +742,7 @@ function toggleDex(){
     link.innerHTML='← 返回搖籤　<span id="dexCount"></span>';
   }else{
     w.style.display='none';
-    link.innerHTML='📖 籤藏不露 · 圖鑑　<span id="dexCount"></span>';
+    link.innerHTML='📖 我已收集　<span id="dexCount"></span>　金句';
   }
   updateDexCount();
 }
@@ -755,10 +755,10 @@ function renderDex(){
   const got=g=>POOL[g].filter(x=>u.has(x.id)).length;
   let h='<div class="dex-head">【籤藏不露】</div><div class="dex-sub">小鴨鴨的羽化錄</div>';
   h+=`<div class="dex-title-badge">${titleFor(u.size)}</div>`;
-  h+=dexProg('講道理',got('argue'),POOL.argue.length);
-  h+=dexProg('說故事',got('narrate'),POOL.narrate.length);
-  h+=dexProg('學分鏡',got('depict'),POOL.depict.length);
-  [['argue','講道理'],['narrate','說故事'],['depict','學分鏡']].forEach(([g,label])=>{
+  h+=dexProg('🧠 講道理',got('argue'),POOL.argue.length);
+  h+=dexProg('💬 說故事',got('narrate'),POOL.narrate.length);
+  h+=dexProg('🎥 學分鏡',got('depict'),POOL.depict.length);
+  [['argue','🧠 講道理'],['narrate','💬 說故事'],['depict','🎥 學分鏡']].forEach(([g,label])=>{
     const cats=[...new Set(POOL[g].map(x=>x.t))];
     cats.forEach(c=>{
       const items=POOL[g].filter(x=>x.t===c);
