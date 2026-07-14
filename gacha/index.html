@@ -672,7 +672,7 @@ POOL.argue.push(
 {id:'a83',t:'讓步',s:2,b:'My grandparents had an opposite opinion.',e:'…held an entirely opposite stance',z:'…抱持截然相反的立場',ex:'My grandparents held an entirely opposite stance on taking days off.'},
 {id:'a84',t:'表態',s:2,b:'I regard the point 3 worths listening.',e:'…is highly worth + Ving',z:'…非常值得…',ex:'This advice is highly worth taking to heart.'},
 {id:'a85',t:'因果',s:2,b:'The conflict would explode.',e:'…frequently triggered intense arguments',z:'…屢屢引爆激烈爭執',ex:'My absences frequently triggered intense arguments at home.'},
-{id:'a86',t:'表態',s:3,b:'I looked for documents on the internet to support my perspective.',e:'gather research to substantiate one\u2019s perspective',z:'蒐集研究以佐證自身觀點',ex:'I gathered research to substantiate my perspective before the debate.'},
+/* a86 剔除留空（substantiate 超出 B1–C1 選字天花板，2026-07 決議）*/
 {id:'a87',t:'解方',s:3,b:'They helped me address the conflict.',e:'…helped mediate the conflict',z:'…協助調停這場衝突',ex:'My parents helped mediate the conflict between two generations.'},
 {id:'a88',t:'解方',s:3,b:'They agreed not to bother my decision.',e:'agreed to respect my autonomy',z:'同意尊重我的自主權',ex:'In the end, my grandparents agreed to respect my autonomy.'},
 {id:'a89',t:'收束',s:2,b:'Make an effort without giving up, and the success will be closer.',e:'Persevere to the end, and success will be within reach.',z:'堅持到底，成功便觸手可及',ex:'Persevere to the end, and success will be within reach.'},
@@ -715,10 +715,9 @@ POOL.narrate.push(
 {id:'n63',t:'收尾',s:1,b:'It becomes the valuable memory.',e:'…has become a cherished memory',z:'…已成為一段珍藏的回憶',ex:'What embarrassed me then has become a cherished memory now.'}
 );
 
-/* ═══ UR 卡池第一批 a91–a102（115 學測佳作 · 閱卷級 s:4）═══ */
+/* ═══ UR 卡池第一批（115 學測佳作 · 閱卷級 s:4）依母本：a91、a93–a102，a92 剔除留空 ═══ */
 POOL.argue.push(
-{id:'a91',t:'收束',s:4,b:'X has good points and bad points.',e:'X is a double-edged sword, offering A yet quietly undermining B.',z:'X 是雙面刃，帶來 A 卻悄悄侵蝕 B',ex:'Social media is a double-edged sword, offering connection yet quietly undermining attention.'},
-{id:'a92',t:'表態',s:4,b:'We should start to think about this problem now.',e:'It is high time (that) we + 過去式…',z:'是我們…的時候了',ex:'It is high time we figured out what lies behind this trend.'},
+{id:'a91',t:'表態',s:4,b:'We should start to think about this problem now.',e:'It is high time (that) we + 過去式…',z:'是我們…的時候了',ex:'It is high time we figured out what lies behind this trend.'},
 {id:'a93',t:'凸顯',s:4,b:'In the past, X was A. But now X is B.',e:'Once perceived as A, X has gradually become B.',z:'曾被視為 A 的 X，已逐漸成為 B',ex:'Once perceived as a luxury, the smartphone has gradually become a necessity.'},
 {id:'a94',t:'表態',s:4,b:'I think X is a big problem for…',e:'X, I believe, is a major hindrance to…',z:'我認為，X 是…的一大阻礙',ex:'The fear of failure, I believe, is a major hindrance to real learning.'},
 {id:'a95',t:'讓步',s:4,b:'A is more important than B.',e:'The A of X simply outweighs the B.',z:'X 的 A 遠遠壓過了 B',ex:'For many, the risks of speaking up simply outweigh the rewards.'},
@@ -743,8 +742,66 @@ POOL.depict=[
 {id:'d08',t:'寓意',s:4,b:'X shows A and also B.',e:'X not only illustrates A but implies B.',z:'X 不僅呈現了 A，更暗示了 B',ex:'The empty playgrounds not only illustrate the low birth rate but imply a lonelier future.'}
 ];
 
-/* ═══ 圖鑑「籤藏不露」— 編號即真相 ═══ */
-/* ═══ 圖鑑「籤藏不露」— ID 已寫死在每支籤資料內，新增籤時務必手動給定不重複的 id ═══ */
+/* ═══ 母本同步批次 a103–a130（28 支，a92 已剔除留空）═══ */
+POOL.argue.push(
+{id:'a103',t:'凸顯',s:4,b:'It shows we really need this.',e:'This highlights the urgent need for…',z:'這凸顯了對…的迫切需求',ex:'The accident highlights the urgent need for safer roads.'},
+{id:'a104',t:'凸顯',s:4,b:'More and more evidence shows this.',e:'There is mounting evidence that…',z:'越來越多的證據顯示…',ex:'There is mounting evidence that sleep shapes memory.'},
+{id:'a105',t:'收束',s:4,b:'We should imagine a better future.',e:'We must envision a future where…',z:'我們必須展望一個…的未來',ex:'We must envision a future where every child learns without fear.'},
+{id:'a106',t:'讓步',s:3,b:'This is not useless.',e:'X may look strange, but it is not necessarily meaningless or harmful.',z:'X看似奇怪卻未必無意義',ex:'The habit may look strange, but it is not necessarily meaningless or harmful.'},
+{id:'a107',t:'因果',s:3,b:'Because they can\u2019t do B, they need C.',e:'Since A cannot do B, C may help them…',z:'既然A無法B，C或許能助其',ex:'Since young learners cannot filter information alone, structure may help them focus.'},
+{id:'a108',t:'讓步',s:3,b:'People still argue about this.',e:'Although this explanation is still debated, it suggests that…',z:'儘管仍有爭議，暗示',ex:'Although this explanation is still debated, it suggests that habits shape outcomes more than talent.'},
+{id:'a109',t:'收束',s:3,b:'It makes people feel they belong.',e:'It marks belonging. It creates an in-group. It lets people…',z:'標記歸屬、形成群體',ex:'Shared slang marks belonging. It creates an in-group. It lets teenagers laugh at something that feels like theirs.'},
+{id:'a110',t:'因果',s:3,b:'A word can change its meaning.',e:'A word that began as A gradually became B.',z:'起初是A的詞漸成B',ex:'A word that began as an insult gradually became a badge of pride.'},
+{id:'a111',t:'讓步',s:3,b:'It looks silly but means something.',e:'Beyond its surface-level absurdity, X reveals something deeper about…',z:'荒謬表象下揭示更深的',ex:'Beyond its surface-level absurdity, the trend reveals something deeper about how we belong.'},
+{id:'a112',t:'收束',s:3,b:'Don\u2019t let it control you.',e:'However handy X may be, it should not control how we…',z:'無論X多便利都不該主宰',ex:'However handy AI may be, it should not control how we judge our own ability.'},
+{id:'a113',t:'解方',s:3,b:'If we use it well, it helps.',e:'Used wisely, X can guide us without…',z:'善用之下引導而不至',ex:'Used wisely, feedback can guide us without crushing our confidence.'},
+{id:'a114',t:'讓步',s:2,b:'I agree but sometimes break it.',e:'I support the rule in principle, but I bend it when…',z:'原則支持，但當…時通融',ex:'I support the plan in principle, but I bend it when deadlines get tight.'},
+{id:'a115',t:'讓步',s:3,b:'I don\u2019t fully believe them.',e:'I take their words with a grain of salt.',z:'對他們的話存有保留',ex:'Advertisers promise the world, so I take their words with a grain of salt.'},
+{id:'a116',t:'凸顯',s:3,b:'It is a big waste.',e:'X is a massive lost opportunity.',z:'X是巨大的錯失良機',ex:'Ignoring students\u2019 curiosity is a massive lost opportunity.'},
+{id:'a117',t:'收束',s:3,b:'Not only A, also B.',e:'X is not merely about A; it is an investment in B.',z:'X不僅關乎A更是對B的投資',ex:'Good teaching is not merely about grades; it is an investment in a curious mind.'},
+{id:'a118',t:'因果',s:3,b:'When A, then B and C.',e:'When A, they can B, C, and boost D.',z:'一旦A便能B、C並推升D',ex:'When learners feel safe, they can experiment, take risks, and boost their own progress.'},
+{id:'a119',t:'讓步',s:3,b:'Although failed, still succeeded.',e:'Though faced with repeated failures, X managed to…',z:'儘管屢遭挫敗仍設法',ex:'Though faced with repeated failures, she managed to rebuild her confidence.'},
+{id:'a120',t:'因果',s:3,b:'Because she loved it, she did it.',e:'It was her passion for A that drove her to…',z:'正是對A的熱情驅使她',ex:'It was his passion for language that drove him to build his own system.'},
+{id:'a121',t:'因果',s:3,b:'The mistake is from bad data.',e:'These errors often stem from a lack of…',z:'這些錯誤往往源自…匱乏',ex:'These errors often stem from a lack of real practice, not a lack of talent.'},
+{id:'a122',t:'解方',s:2,b:'The government should stop them.',e:'We need better oversight to stop X from…',z:'需更完善監督以阻止X',ex:'We need better guidance to stop shortcuts from replacing real understanding.'},
+{id:'a123',t:'表態',s:3,b:'A champion is someone who wins.',e:'X is not just A; it is a lifestyle defined by…',z:'X不只是A，而是由…定義的生活方式',ex:'Learning is not just a task; it is a lifestyle defined by relentless curiosity.'},
+{id:'a124',t:'收束',s:3,b:'It needs three things.',e:'X is built on three core pillars: A, B, and C.',z:'X建立在三大核心支柱之上',ex:'Real fluency is built on three core pillars: input, imitation, and fearless output.'},
+{id:'a125',t:'讓步',s:3,b:'A champion never accepts being ordinary.',e:'X is defined by an uncompromising refusal of mediocrity.',z:'對平庸絕不妥協',ex:'His teaching is defined by an uncompromising refusal of mediocrity.'},
+{id:'a126',t:'因果',s:3,b:'When we work with others we go further.',e:'Working side by side with like-minded people pushes us further than we could go alone.',z:'與志同道合者並肩，走得比獨行更遠',ex:'Working side by side with driven classmates pushed me further than I could go alone.'},
+{id:'a127',t:'收束',s:3,b:'With this mindset anyone can succeed.',e:'By cultivating this mindset, anyone can turn obstacles into learning experiences.',z:'培養此心態，任何人都能化障礙為養分',ex:'By cultivating this mindset, students can turn every mistake into progress.'},
+{id:'a128',t:'讓步',s:3,b:'It looks like a gift but it\u2019s a trap.',e:'Something may look like a gift, yet it could hide a threat.',z:'看似禮物卻可能暗藏危機',ex:'A shortcut may look like a gift, yet it could hide a threat to real learning.'},
+{id:'a129',t:'收束',s:3,b:'We should look deeper.',e:'This reminds us to always look beneath the surface.',z:'提醒我們永遠看穿表象',ex:'Every clever excuse reminds us to always look beneath the surface.'},
+{id:'a130',t:'問題',s:2,b:'If you ignore it, it gets worse.',e:'Ignoring the symptoms only leads to X and a decline in Y.',z:'忽視徵兆只會導致X與Y的衰退',ex:'Ignoring small errors only leads to bad habits and a decline in confidence.'}
+);
+
+/* ═══ 母本同步批次 n64–n72（9 支）═══ */
+POOL.narrate.push(
+{id:'n64',t:'氛圍',s:3,b:'The place makes you relax.',e:'A invites you to slow down.',z:'A邀你慢下腳步',ex:'Soft music and warm light invited me to slow down.'},
+{id:'n65',t:'氛圍',s:3,b:'The lights look warm at night.',e:'The lights glow warmly along A, making the evening feel…',z:'燈火沿A溫暖閃爍，讓夜晚顯得',ex:'The lights glowed warmly along the river, making the evening feel calm and unreal.'},
+{id:'n66',t:'轉折',s:2,b:'You think it\u2019s just playing, but it\u2019s not.',e:'You may think A is simply B, but it is actually…',z:'你以為A只是B，其實是',ex:'You may think the silence was simply awkward, but it was actually the moment everything changed.'},
+{id:'n67',t:'心境',s:3,b:'I felt very bad when I saw it.',e:'What I saw made me feel sick to my stomach.',z:'那一幕令我作嘔',ex:'What I saw in that message made me feel sick to my stomach.'},
+{id:'n68',t:'轉折',s:3,b:'I decided I could not keep quiet.',e:'I knew I could not stay silent anymore. I boldly stepped forward.',z:'我不能再沉默，勇敢站出',ex:'Watching it happen, I knew I could not stay silent anymore.'},
+{id:'n69',t:'氛圍',s:3,b:'Everyone was nervous, a fight almost happened.',e:'There was tension in the air. A violent clash seemed inevitable.',z:'空氣緊張，衝突一觸即發',ex:'Nobody spoke. There was tension in the air, and a clash seemed inevitable.'},
+{id:'n70',t:'收尾',s:3,b:'I learned that being brave is important.',e:'From that day on, I realized: A does not need to be B.',z:'從那天起領悟：A未必要B',ex:'From that day on, I realized that courage does not need to be loud.'},
+{id:'n71',t:'心境',s:2,b:'He looked at him and felt thankful.',e:'X looked up at Y in admiration, eyes full of gratitude.',z:'X滿懷感激敬佩地望著Y',ex:'The boy looked up at his mentor in admiration, eyes full of gratitude.'},
+{id:'n72',t:'心境',s:3,b:'Working alone feels lonely.',e:'Working alone often feels hollow, as the silence amplifies my isolation.',z:'獨自工作感到空洞，寂靜放大孤立',ex:'Studying alone at midnight felt hollow, the silence amplifying my isolation.'}
+);
+
+/* ═══ 母本同步批次 d09–d19（10 支，d15 剔除留空）═══ */
+POOL.depict.push(
+{id:'d09',t:'定調',s:3,b:'X is popular now.',e:'Since X was launched, it has grown into an influential platform for…',z:'自問世X已成長為重要平台',ex:'Since the app was launched, it has grown into an influential platform for language learners.'},
+{id:'d10',t:'運鏡',s:3,b:'It\u2019s different from a restaurant.',e:'Unlike A, X turns an ordinary space into…',z:'不同於A，X把尋常空間變成',ex:'Unlike a quiet library, the night market turns an ordinary street into a stage of flavors.'},
+{id:'d11',t:'運鏡',s:3,b:'You can smell the food first.',e:'The smell of A usually greets you before you even…',z:'A的氣味往往在你還沒…前先迎面而來',ex:'The smell of grilled corn usually greets you before you even reach the stall.'},
+{id:'d12',t:'定調',s:3,b:'When you arrive, it feels nice.',e:'Upon arriving, you are greeted by…',z:'一抵達，…便迎面而來',ex:'Upon arriving, you are greeted by warm air and the hum of the market.'},
+{id:'d13',t:'運鏡',s:3,b:'There are trees and cars on the road.',e:'A, B, and C pass by your window, giving you an immediate sense of…',z:'A、B、C掠過窗外，讓你瞬間感受到',ex:'Palm trees, scooters, and blue sea pass by your window, giving you an immediate sense of the island\u2019s rhythm.'},
+{id:'d14',t:'運鏡',s:3,b:'A password can change but a face cannot.',e:'Unlike A, which can be changed, B remains the same for life.',z:'不同於可更改的A，B終生不變',ex:'Unlike a habit, which can be broken, a core belief remains for life.'},
+{id:'d16',t:'運鏡',s:3,b:'X is a kind of Y.',e:'X is like the angry cousin of Y.',z:'X就像Y那個易怒的表親',ex:'Rage bait is like the angry cousin of clickbait.'},
+{id:'d17',t:'運鏡',s:3,b:'There is a thing called X.',e:'X often brings the uncomfortable sensation known as "A."',z:'X常帶來被稱為「A」的不適感',ex:'Cramming often brings the uncomfortable sensation known as "brain fog."'},
+{id:'d18',t:'運鏡',s:3,b:'It happens because pressure changes fast.',e:'This phenomenon occurs due to a rapid fluctuation in A.',z:'此現象源於A的急遽變化',ex:'This phenomenon occurs due to a rapid fluctuation in attention.'},
+{id:'d19',t:'運鏡',s:3,b:'It\u2019s not a disease, just aging.',e:'This is not the result of a disease; rather, it is a natural byproduct of A.',z:'並非疾病，而是A的自然副產物',ex:'Forgetting is not a sign of failure; rather, it is a natural byproduct of learning fast.'}
+);
+
+/* ═══ 圖鑑「籤藏不露」— ID 已寫死在每支籤資料內，依母本「編號即真相，剔除留空不遞補」（a92、d15 留空）═══ */
 (function checkIds(){
   const seen=new Set();
   ['argue','narrate','depict'].forEach(g=>POOL[g].forEach(x=>{
@@ -752,9 +809,11 @@ POOL.depict=[
     seen.add(x.id);
   }));
 })();
+const VALID_IDS=new Set();
+['argue','narrate','depict'].forEach(g=>POOL[g].forEach(x=>VALID_IDS.add(x.id)));
 const TOTAL=POOL.argue.length+POOL.narrate.length+POOL.depict.length;
 
-function unlockedIds(){try{return JSON.parse(store.getItem('dex_unlocked')||'[]');}catch(e){return[];}}
+function unlockedIds(){try{return JSON.parse(store.getItem('dex_unlocked')||'[]').filter(id=>VALID_IDS.has(id));}catch(e){return[];}}
 function recordUnlocks(items){
   const u=new Set(unlockedIds());
   items.forEach(x=>u.add(x.id));
@@ -1059,6 +1118,13 @@ function rattle(){
 }
 
 /* init */
+/* 舊版編號搬遷：v3 前的 a92（It is high time）依母本改編為 a91，收集紀錄自動轉移 */
+try{
+  const raw=JSON.parse(store.getItem('dex_unlocked')||'[]');
+  if(Array.isArray(raw)&&raw.includes('a92')){
+    store.setItem('dex_unlocked',JSON.stringify([...new Set(raw.map(id=>id==='a92'?'a91':id))]));
+  }
+}catch(e){}
 resetIfNewDay();
 renderQuota();
 renderPersonalCount();
